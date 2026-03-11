@@ -19,9 +19,11 @@ claude-skills/
     ├── nestjs-error-handling/
     ├── nestjs-semantic-search/
     ├── nestjs-swagger/
+    ├── nestjs-monorepo/
     ├── nestjs-testing/
     ├── nestjs-validation/
     ├── nextjs-a11y/
+    ├── nextjs-monorepo/
     ├── nextjs-testing/
     ├── nextjs-seo/
     ├── nextjs-shadcn/
@@ -49,6 +51,7 @@ claude-skills/
 | **nestjs-crud** | CRUD 모듈 스캐폴딩 (리소스 생성, 페이지네이션) |
 | **nestjs-database** | 데이터베이스 패턴 (TypeORM, Prisma, 마이그레이션) |
 | **nestjs-error-handling** | 예외 처리 (Exception Filter, 커스텀 예외) |
+| **nestjs-monorepo** | 모노레포 설정 (Turborepo, pnpm workspaces, 공유 라이브러리, 배포) |
 | **nestjs-semantic-search** | 시맨틱 검색 (pgvector, 임베딩, RAG) |
 | **nestjs-swagger** | Swagger/OpenAPI 문서화 |
 | **nestjs-testing** | 테스트 작성 (유닛 테스트, E2E 테스트) |
@@ -62,6 +65,7 @@ claude-skills/
 | **nextjs-a11y** | 웹 접근성 (WCAG 2.2, ARIA, 키보드 네비게이션) |
 | **nextjs-seo** | SEO 최적화 (Metadata API, 사이트맵, JSON-LD) |
 | **nextjs-shadcn** | shadcn/ui 컴포넌트 패턴 |
+| **nextjs-monorepo** | 모노레포 설정 (Turborepo, pnpm workspaces, 공유 패키지, 배포) |
 | **nextjs-testing** | 테스트 (Vitest 유닛 테스트, Cypress 컴포넌트/E2E 테스트) |
 | **server-actions** | Server Actions 패턴 (Zod 유효성 검사, 에러 처리) |
 
