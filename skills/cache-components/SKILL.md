@@ -1,0 +1,238 @@
+---
+name: cache-components
+description: Next.js Cache Components (use cache) 패턴 가이드. cacheTag, cacheLife, updateTag 사용법.
+---
+
+> 참조:
+> - [REFERENCE.md](REFERENCE.md) - 전체 API 레퍼런스 (지시어, cacheLife, cacheTag, updateTag, revalidateTag)
+> - [PATTERNS.md](PATTERNS.md) - 12개 캐시 패턴 & 레시피 (이커머스, SaaS, 서브셸 등)
+> - [TROUBLESHOOTING.md](TROUBLESHOOTING.md) - 디버깅 체크리스트, 에러 해결, 성능 최적화
+
+# Next.js Cache Components 가이드
+
+## 전제 조건
+
+`next.config.ts`에서 활성화 필요:
+
+```ts
+const nextConfig = {
+  cacheComponents: true,
+};
+```
+
+## 캐시 지시어
+
+### 'use cache' (기본)
+
+인메모리 캐시. 가장 기본적인 캐시 방식.
+
+```tsx
+"use cache";
+
+import { cacheTag, cacheLife } from "next/cache";
+
+export async function getProducts() {
+  cacheTag("products");
+  cacheLife("hours");
+  return db.query.products.findMany();
+}
+```
+
+### 'use cache: private'
+
+cookies()/headers() 접근이 필요할 때 사용.
+
+```tsx
+"use cache: private";
+
+import { cookies } from "next/headers";
+import { cacheTag, cacheLife } from "next/cache";
+
+export async function getUserPreferences() {
+  cacheTag("user-prefs");
+  cacheLife("minutes");
+  const session = await cookies();
+  const userId = session.get("userId")?.value;
+  return db.query.preferences.findFirst({ where: { userId } });
+}
+```
+
+### 'use cache: remote'
+
+인스턴스 간 공유되는 영구 캐시 (Redis, KV).
+
+```tsx
+"use cache: remote";
+
+import { cacheTag, cacheLife } from "next/cache";
+
+export async function getGlobalConfig() {
+  cacheTag("global-config");
+  cacheLife("days");
+  return db.query.config.findFirst();
+}
+```
+
+## cacheLife 프리셋
+
+| 프리셋      | stale    | revalidate | expire   |
+| ----------- | -------- | ---------- | -------- |
+| `"seconds"` | 즉시     | 1초        | 60초     |
+| `"minutes"` | 5분      | 1분        | 1시간    |
+| `"hours"`   | 5분      | 1시간      | 1일      |
+| `"days"`    | 5분      | 1일        | 1주      |
+| `"weeks"`   | 5분      | 1주        | 1개월    |
+| `"max"`     | 5분      | 1개월      | 무제한   |
+
+### 커스텀 cacheLife
+
+```tsx
+cacheLife({
+  stale: 300,       // 5분 동안 stale 허용
+  revalidate: 3600, // 1시간마다 재검증
+  expire: 86400,    // 1일 후 만료
+});
+```
+
+## cacheTag - 무효화 키
+
+```tsx
+"use cache";
+
+import { cacheTag, cacheLife } from "next/cache";
+
+// 단일 태그
+export async function getPost(id: string) {
+  cacheTag(`post-${id}`);
+  cacheLife("hours");
+  return db.query.posts.findFirst({ where: { id } });
+}
+
+// 다중 태그
+export async function getPostWithComments(id: string) {
+  cacheTag(`post-${id}`, "comments");
+  cacheLife("minutes");
+  return {
+    post: await db.query.posts.findFirst({ where: { id } }),
+    comments: await db.query.comments.findMany({ where: { postId: id } }),
+  };
+}
+```
+
+## 무효화: updateTag vs revalidateTag
+
+### updateTag (Server Actions 전용, 즉시)
+
+```tsx
+"use server";
+
+import { updateTag } from "next/cache";
+
+export async function updatePost(id: string, formData: FormData) {
+  await db.posts.update({
+    where: { id },
+    data: { title: formData.get("title") as string },
+  });
+  updateTag(`post-${id}`); // 즉시 무효화 (read-your-own-writes)
+}
+```
+
+### revalidateTag (Server Actions + Route Handlers)
+
+```tsx
+import { revalidateTag } from "next/cache";
+
+// Route Handler에서 사용 가능
+export async function POST(request: Request) {
+  const data = await request.json();
+  await processWebhook(data);
+  revalidateTag("products"); // stale-while-revalidate
+  return Response.json({ ok: true });
+}
+```
+
+**권장:** Server Actions에서는 `updateTag()` 사용 (즉시 반영).
+
+## 주의사항
+
+### 'use cache'는 반드시 첫 번째 문장
+
+```tsx
+// ✅ 올바름
+"use cache";
+import { cacheTag } from "next/cache";
+
+// ❌ 오류
+import { cacheTag } from "next/cache";
+("use cache");
+```
+
+### 'use cache' 내부에서 cookies/headers 금지
+
+```tsx
+// ❌ 오류
+"use cache";
+export async function getData() {
+  const session = await cookies(); // 오류 발생
+}
+
+// ✅ 'use cache: private' 사용
+"use cache: private";
+export async function getData() {
+  const session = await cookies(); // OK
+}
+```
+
+### Suspense로 동적 콘텐츠 감싸기
+
+```tsx
+import { Suspense } from "react";
+
+export default function ProductPage() {
+  return (
+    <>
+      <Suspense fallback={<ProductSkeleton />}>
+        <ProductDetails />
+      </Suspense>
+      <Suspense fallback={<ReviewsSkeleton />}>
+        <ProductReviews />
+      </Suspense>
+    </>
+  );
+}
+```
+
+## 지원 중단된 패턴
+
+```tsx
+// ❌ 지원 중단
+export const revalidate = 3600;    // → cacheLife("hours")
+export const dynamic = "force-dynamic"; // → 제거, 'use cache' + Suspense
+export const fetchCache = "force-cache"; // → 'use cache'
+
+// ✅ 대체
+"use cache";
+cacheLife("hours");
+```
+
+## 컴포넌트 레벨 캐싱
+
+```tsx
+"use cache";
+
+import { cacheTag, cacheLife } from "next/cache";
+
+export async function CachedSidebar() {
+  cacheTag("sidebar");
+  cacheLife("days");
+
+  const navigation = await getNavigation();
+  return (
+    <nav>
+      {navigation.map(item => (
+        <a key={item.href} href={item.href}>{item.label}</a>
+      ))}
+    </nav>
+  );
+}
+```
