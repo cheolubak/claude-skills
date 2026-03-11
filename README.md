@@ -8,6 +8,7 @@ Claude Code에서 사용할 수 있는 커스텀 스킬(Skills)과 에이전트(
 claude-skills/
 ├── agents/
 │   ├── code-simplifier.md
+│   ├── nestjs-reviewer.md
 │   └── nextjs-reviewer.md
 └── skills/
     ├── cache-components/
@@ -33,6 +34,7 @@ claude-skills/
 | 에이전트 | 설명 |
 |---------|------|
 | **nextjs-reviewer** | Next.js + bun 애플리케이션을 확립된 패턴에 따라 리뷰합니다. 심각한 이슈는 자동 수정하고 권장사항을 보고합니다. |
+| **nestjs-reviewer** | NestJS 애플리케이션을 확립된 패턴에 따라 리뷰합니다. 심각한 이슈는 자동 수정하고 권장사항을 보고합니다. |
 | **code-simplifier** | 모든 기능을 보존하면서 코드의 명확성, 일관성, 유지보수성을 높이도록 단순화하고 개선합니다. |
 
 ## Skills
