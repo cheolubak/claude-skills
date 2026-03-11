@@ -22,6 +22,7 @@ claude-skills/
     ├── nestjs-testing/
     ├── nestjs-validation/
     ├── nextjs-a11y/
+    ├── nextjs-testing/
     ├── nextjs-seo/
     ├── nextjs-shadcn/
     ├── react-best-practices/
@@ -61,6 +62,7 @@ claude-skills/
 | **nextjs-a11y** | 웹 접근성 (WCAG 2.2, ARIA, 키보드 네비게이션) |
 | **nextjs-seo** | SEO 최적화 (Metadata API, 사이트맵, JSON-LD) |
 | **nextjs-shadcn** | shadcn/ui 컴포넌트 패턴 |
+| **nextjs-testing** | 테스트 (Vitest 유닛 테스트, Cypress 컴포넌트/E2E 테스트) |
 | **server-actions** | Server Actions 패턴 (Zod 유효성 검사, 에러 처리) |
 
 ### React / UI
@@ -75,4 +77,4 @@ claude-skills/
 - **Backend**: NestJS, TypeORM, Prisma, PostgreSQL, pgvector
 - **Frontend**: Next.js (App Router), React, shadcn/ui, Tailwind CSS
 - **Runtime**: Bun
-- **Testing**: Jest, Supertest
+- **Testing**: Vitest, Cypress, Supertest
