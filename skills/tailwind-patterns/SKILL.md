@@ -227,7 +227,7 @@ function Badge({ variant, className }: BadgeProps) {
 ## 8. 스크롤바 숨기기
 
 ```bash
-bun add tailwind-scrollbar-hide
+pnpm add tailwind-scrollbar-hide
 ```
 
 ```tsx

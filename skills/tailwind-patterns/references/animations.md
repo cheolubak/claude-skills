@@ -162,7 +162,7 @@ import Link from 'next/link'
 ## 4. Motion 라이브러리 (motion/react)
 
 ```bash
-bun add motion
+pnpm add motion
 ```
 
 ### FadeIn 컴포넌트
@@ -258,7 +258,7 @@ const MotionDiv = dynamic(
 ## 5. GSAP + ScrollTrigger
 
 ```bash
-bun add gsap @gsap/react
+pnpm add gsap @gsap/react
 ```
 
 ### 스크롤 시 나타나기
@@ -331,7 +331,7 @@ export function Parallax({ children, speed = 0.5 }: { children: React.ReactNode;
 ## 6. 부드러운 스크롤 (Lenis)
 
 ```bash
-bun add lenis
+pnpm add lenis
 ```
 
 ```tsx

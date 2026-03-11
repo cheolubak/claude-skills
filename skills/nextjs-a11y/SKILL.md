@@ -352,7 +352,7 @@ export function RouteAnnouncer() {
 # https://www.deque.com/axe/devtools/
 
 # eslint-plugin-jsx-a11y 설치
-bun add -D eslint-plugin-jsx-a11y
+pnpm add -D eslint-plugin-jsx-a11y
 ```
 
 ## 자주 하는 실수

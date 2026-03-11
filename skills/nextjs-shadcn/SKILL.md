@@ -7,15 +7,15 @@ description: shadcn/ui + Next.js 컴포넌트 패턴 가이드
 > - [references/architecture.md](references/architecture.md) - 컴포넌트, 라우팅, Suspense, 데이터 패턴, AI 디렉토리 구조
 > - [references/styling.md](references/styling.md) - 테마, 폰트, radius, 애니메이션, CSS 변수, 배경 패턴
 > - [references/sidebar.md](references/sidebar.md) - shadcn 사이드바 + 중첩 레이아웃
-> - [references/project-setup.md](references/project-setup.md) - bun 명령어, 프리셋, 프로젝트 구조
+> - [references/project-setup.md](references/project-setup.md) - pnpm 명령어, 프리셋, 프로젝트 구조
 
 # shadcn/ui + Next.js 패턴 가이드
 
 ## 설치 및 설정
 
 ```bash
-bunx shadcn@latest init
-bunx shadcn@latest add button card dialog form input label select textarea toast
+pnpx shadcn@latest init
+pnpx shadcn@latest add button card dialog form input label select textarea toast
 ```
 
 ## 컴포넌트 사용 원칙

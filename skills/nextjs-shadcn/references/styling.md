@@ -109,10 +109,10 @@ ui.shadcn.com/create에서 사용 가능한 스타일:
 
 우선순위 순서 (먼저 사용 가능한 것을 사용):
 
-1. **lucide** (기본값) - `bun add lucide-react`
-2. **tabler** - `bun add @tabler/icons-react`
-3. **hugeicons** - `bun add hugeicons-react`
-4. **phosphor** - `bun add @phosphor-icons/react`
+1. **lucide** (기본값) - `pnpm add lucide-react`
+2. **tabler** - `pnpm add @tabler/icons-react`
+3. **hugeicons** - `pnpm add hugeicons-react`
+4. **phosphor** - `pnpm add @phosphor-icons/react`
 
 ```tsx
 // lucide 예시
@@ -187,7 +187,7 @@ import Link from "next/link"
 복잡한 애니메이션에 사용:
 
 ```bash
-bun add motion
+pnpm add motion
 ```
 
 ```tsx
@@ -237,7 +237,7 @@ export function FadeIn({
 스크롤 트리거 및 복잡한 시퀀스에 사용:
 
 ```bash
-bun add gsap @gsap/react
+pnpm add gsap @gsap/react
 ```
 
 ```tsx
@@ -452,7 +452,7 @@ components/
 스크롤 기능을 유지하면서 스크롤바를 숨기세요:
 
 ```bash
-bun add tailwind-scrollbar-hide
+pnpm add tailwind-scrollbar-hide
 ```
 
 ```ts

@@ -5,7 +5,7 @@
 ## 설치
 
 ```bash
-bunx --bun shadcn@latest add sidebar
+pnpx shadcn@latest add sidebar
 ```
 
 ## 레이아웃 패턴

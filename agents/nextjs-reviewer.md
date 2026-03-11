@@ -1,6 +1,6 @@
 ---
 name: nextjs-reviewer
-description: Next.js + bun 애플리케이션을 확립된 패턴에 따라 리뷰합니다. 심각한 이슈는 자동 수정하고 권장사항을 보고합니다. 프로젝트 감사 또는 검증에 사용합니다.
+description: Next.js + pnpm 애플리케이션을 확립된 패턴에 따라 리뷰합니다. 심각한 이슈는 자동 수정하고 권장사항을 보고합니다. 프로젝트 감사 또는 검증에 사용합니다.
 model: opus
 skills:
   - nextjs-shadcn
@@ -203,9 +203,9 @@ export default function DashboardLayout({ children }) {
 
 ### 6. 패키지 매니저 & 포매팅
 
-**기본:** bun 사용 중 (플래그 불필요).
+**기본:** pnpm 사용 중 (플래그 불필요).
 
-**제안:** 코드 스타일이 일관적이지 않으면 prettier 포매팅을 위해 `bun format` 실행.
+**제안:** 코드 스타일이 일관적이지 않으면 prettier 포매팅을 위해 `pnpm format` 실행.
 
 ### 7. React 패턴
 

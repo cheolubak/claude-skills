@@ -39,7 +39,7 @@ function Badge({ variant, className }: BadgeProps) {
 ## class-variance-authority (cva)
 
 ```bash
-bun add class-variance-authority
+pnpm add class-variance-authority
 ```
 
 ```tsx
@@ -135,7 +135,7 @@ peer-focus:ring-2            # 형제 대상
 ### 스크롤
 
 ```bash
-bun add tailwind-scrollbar-hide
+pnpm add tailwind-scrollbar-hide
 ```
 
 ```text

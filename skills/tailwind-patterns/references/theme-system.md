@@ -158,7 +158,7 @@ export default {
 ### next-themes
 
 ```bash
-bun add next-themes
+pnpm add next-themes
 ```
 
 ```tsx

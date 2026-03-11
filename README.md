@@ -36,7 +36,7 @@ claude-skills/
 
 | 에이전트 | 설명 |
 |---------|------|
-| **nextjs-reviewer** | Next.js + bun 애플리케이션을 확립된 패턴에 따라 리뷰합니다. 심각한 이슈는 자동 수정하고 권장사항을 보고합니다. |
+| **nextjs-reviewer** | Next.js + pnpm 애플리케이션을 확립된 패턴에 따라 리뷰합니다. 심각한 이슈는 자동 수정하고 권장사항을 보고합니다. |
 | **nestjs-reviewer** | NestJS 애플리케이션을 확립된 패턴에 따라 리뷰합니다. 심각한 이슈는 자동 수정하고 권장사항을 보고합니다. |
 | **code-simplifier** | 모든 기능을 보존하면서 코드의 명확성, 일관성, 유지보수성을 높이도록 단순화하고 개선합니다. |
 
@@ -80,5 +80,5 @@ claude-skills/
 
 - **Backend**: NestJS, TypeORM, Prisma, PostgreSQL, pgvector
 - **Frontend**: Next.js (App Router), React, shadcn/ui, Tailwind CSS
-- **Runtime**: Bun
+- **Package Manager**: pnpm
 - **Testing**: Vitest, Cypress, Supertest
