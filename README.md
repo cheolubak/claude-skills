@@ -8,8 +8,14 @@ Claude Code에서 사용할 수 있는 커스텀 스킬(Skills)과 에이전트(
 claude-skills/
 ├── agents/
 │   ├── code-simplifier.md
+│   ├── devils-advocate.md
 │   ├── nestjs-reviewer.md
-│   └── nextjs-reviewer.md
+│   ├── nextjs-reviewer.md
+│   ├── team-reviewer.md
+│   ├── tech-architect.md
+│   └── ux-expert.md
+├── teams/
+│   └── review-team.md
 └── skills/
     ├── cache-components/
     ├── nestjs-auth/
@@ -39,6 +45,18 @@ claude-skills/
 | **nextjs-reviewer** | Next.js + pnpm 애플리케이션을 확립된 패턴에 따라 리뷰합니다. 심각한 이슈는 자동 수정하고 권장사항을 보고합니다. |
 | **nestjs-reviewer** | NestJS 애플리케이션을 확립된 패턴에 따라 리뷰합니다. 심각한 이슈는 자동 수정하고 권장사항을 보고합니다. |
 | **code-simplifier** | 모든 기능을 보존하면서 코드의 명확성, 일관성, 유지보수성을 높이도록 단순화하고 개선합니다. |
+| **ux-expert** | UX 전문가 - 사용자 경험, 사용성, 접근성, 사용자 흐름을 분석하고 개선안을 제시합니다. |
+| **tech-architect** | 기술 아키텍트 - 시스템 설계, 확장성, 성능, 기술 스택 선택을 분석하고 아키텍처 의사결정을 기록합니다. |
+| **devils-advocate** | 비판적 검토자 - 가정을 도전하고, 위험을 탐색하며, 맹점을 발견하여 의사결정의 질을 높입니다. |
+| **team-reviewer** | 최종 검토자 - 모든 관점(UX, 기술, 리스크)을 종합하여 충돌을 조율하고 실행 가능한 결론을 도출합니다. |
+
+## Teams
+
+| 팀 | 멤버 | 설명 |
+|----|------|------|
+| **review-team** | ux-expert, tech-architect, devils-advocate, team-reviewer | 4인 다각도 리뷰 팀. Phase 1에서 UX/기술/리스크를 병렬 분석하고, Phase 2에서 종합 판정을 도출합니다. |
+
+사용법: `/review-team [분석 대상]`
 
 ## Skills
 
