@@ -12,7 +12,7 @@
       "Bash(DROP *)",
       "Bash(DELETE FROM *)"
     ],
-    "defaultMode": "auto"
+    "defaultMode": "bypassPermissions"
   },
   "model": "opus",
   "effortLevel": "high",
