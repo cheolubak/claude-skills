@@ -20,10 +20,6 @@
   "cleanupPeriodDays": 30,
   "includeCoAuthoredBy": true,
   "respectGitignore": true,
-  "statusLine": {
-    "type": "command",
-    "command": "bash \"$HOME/.claude/statusline-command.sh\""
-  },
   "hooks": {
     "PreToolUse": [
       {

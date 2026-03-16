@@ -14,7 +14,9 @@ fi
 if [ "${CLAUDE_SYSTEM_ALERT:-0}" = "1" ]; then
   case "$(uname -s)" in
     Darwin)
-      osascript -e "display notification \"$message\" with title \"$title\""
+      escaped_message=$(echo "$message" | sed 's/\\/\\\\/g; s/"/\\"/g')
+      escaped_title=$(echo "$title" | sed 's/\\/\\\\/g; s/"/\\"/g')
+      osascript -e "display notification \"$escaped_message\" with title \"$escaped_title\""
       ;;
     MINGW*|MSYS*|CYGWIN*|Windows_NT)
       powershell.exe -Command "[Windows.UI.Notifications.ToastNotificationManager, Windows.UI.Notifications, ContentType = WindowsRuntime] > \$null; \$xml = [Windows.UI.Notifications.ToastNotificationManager]::GetTemplateContent([Windows.UI.Notifications.ToastTemplateType]::ToastText02); \$texts = \$xml.GetElementsByTagName('text'); \$texts[0].AppendChild(\$xml.CreateTextNode('$title')) > \$null; \$texts[1].AppendChild(\$xml.CreateTextNode('$message')) > \$null; [Windows.UI.Notifications.ToastNotificationManager]::CreateToastNotifier('Claude Code').Show([Windows.UI.Notifications.ToastNotification]::new(\$xml))" 2>/dev/null
