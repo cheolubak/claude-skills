@@ -3,18 +3,7 @@
     "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
   },
   "permissions": {
-    "allow": [
-      "Bash(pnpm install:*)",
-      "Bash(tree:*)",
-      "Bash(ls:*)",
-      "Bash(npx tsc:*)",
-      "Bash(find:*)",
-      "Bash(wc:*)",
-      "Bash(mv:*)",
-      "Bash(ln:*)",
-      "Bash(grep:*)",
-      "WebSearch"
-    ],
+    "allow": [],
     "deny": [
       "Bash(git push *)",
       "Bash(git push)",
