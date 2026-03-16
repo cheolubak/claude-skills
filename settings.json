@@ -1,0 +1,62 @@
+{
+  "env": {
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
+  },
+  "permissions": {
+    "allow": [
+      "Bash(pnpm install:*)",
+      "Bash(tree:*)",
+      "Bash(ls:*)",
+      "Bash(npx tsc:*)",
+      "Bash(find:*)",
+      "Bash(wc:*)",
+      "Bash(mv:*)",
+      "Bash(ln:*)",
+      "Bash(grep:*)",
+      "WebSearch"
+    ],
+    "deny": [
+      "Bash(git push *)",
+      "Bash(git push)",
+      "Bash(rm -rf *)",
+      "Bash(git reset --hard*)",
+      "Bash(DROP *)",
+      "Bash(DELETE FROM *)"
+    ],
+    "defaultMode": "auto"
+  },
+  "model": "opus",
+  "effortLevel": "high",
+  "teammateMode": "in-process",
+  "cleanupPeriodDays": 30,
+  "includeCoAuthoredBy": true,
+  "respectGitignore": true,
+  "statusLine": {
+    "type": "command",
+    "command": "bash \"$HOME/.claude/statusline-command.sh\""
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "case \"$CLAUDE_TOOL_INPUT\" in *'rm -rf /'*|*'rm -rf ~'*|*'git push --force'*|*'git push -f '*|*'git reset --hard'*|*'DROP TABLE'*|*'DROP DATABASE'*) echo 'BLOCK: 위험한 명령이 감지되었습니다. 사용자에게 확인하세요.' >&2; exit 2;; esac"
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$HOME/.claude/notify.sh\""
+          }
+        ]
+      }
+    ]
+  }
+}

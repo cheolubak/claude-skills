@@ -2,6 +2,28 @@
 
 Claude Code에서 사용할 수 있는 커스텀 스킬(Skills)과 에이전트(Agents) 모음입니다.
 
+## Setting
+
+```bash
+# setting agents
+$ ln -s $(pwd)/agents $HOME/.claude/agents
+
+# setting skills
+$ ln -s $(pwd)/skills $HOME/.claude/skills
+
+# setting teams
+$ ln -s $(pwd)/teams $HOME/.claude/teams
+
+# setting rules
+$ ln -s $(pwd)/rules $HOME/.claude/rules
+
+# setting settings.json
+$ ln -s $(pwd)/settings.json $HOME/.claude/settings.json
+
+# setting notify.sh
+$ ln -s $(pwd)/notify.sh $HOME/.claude/notify.sh
+```
+
 ## 프로젝트 구조
 
 ```
@@ -14,28 +36,36 @@ claude-skills/
 │   ├── team-reviewer.md
 │   ├── tech-architect.md
 │   └── ux-expert.md
+├── rules/
+│   ├── agents.md
+│   ├── skills.md
+│   └── teams.md
+├── skills/
+│   ├── cache-components/
+│   ├── nestjs-auth/
+│   ├── nestjs-config/
+│   ├── nestjs-crud/
+│   ├── nestjs-database/
+│   ├── nestjs-error-handling/
+│   ├── nestjs-monorepo/
+│   ├── nestjs-semantic-search/
+│   ├── nestjs-swagger/
+│   ├── nestjs-testing/
+│   ├── nestjs-validation/
+│   ├── nextjs-a11y/
+│   ├── nextjs-i18n/
+│   ├── nextjs-monorepo/
+│   ├── nextjs-seo/
+│   ├── nextjs-shadcn/
+│   ├── nextjs-testing/
+│   ├── react-best-practices/
+│   ├── review-team/
+│   ├── server-actions/
+│   └── tailwind-patterns/
 ├── teams/
 │   └── review-team.md
-└── skills/
-    ├── cache-components/
-    ├── nestjs-auth/
-    ├── nestjs-config/
-    ├── nestjs-crud/
-    ├── nestjs-database/
-    ├── nestjs-error-handling/
-    ├── nestjs-semantic-search/
-    ├── nestjs-swagger/
-    ├── nestjs-monorepo/
-    ├── nestjs-testing/
-    ├── nestjs-validation/
-    ├── nextjs-a11y/
-    ├── nextjs-monorepo/
-    ├── nextjs-testing/
-    ├── nextjs-seo/
-    ├── nextjs-shadcn/
-    ├── react-best-practices/
-    ├── server-actions/
-    └── tailwind-patterns/
+├── notify.sh
+└── settings.json
 ```
 
 ## Agents
@@ -81,9 +111,10 @@ claude-skills/
 |------|------|
 | **cache-components** | Cache Components (`use cache`) 패턴 (cacheTag, cacheLife) |
 | **nextjs-a11y** | 웹 접근성 (WCAG 2.2, ARIA, 키보드 네비게이션) |
+| **nextjs-i18n** | 다국어 지원 (i18next, react-i18next, 번역 키 관리) |
+| **nextjs-monorepo** | 모노레포 설정 (Turborepo, pnpm workspaces, 공유 패키지, 배포) |
 | **nextjs-seo** | SEO 최적화 (Metadata API, 사이트맵, JSON-LD) |
 | **nextjs-shadcn** | shadcn/ui 컴포넌트 패턴 |
-| **nextjs-monorepo** | 모노레포 설정 (Turborepo, pnpm workspaces, 공유 패키지, 배포) |
 | **nextjs-testing** | 테스트 (Vitest 유닛 테스트, Cypress 컴포넌트/E2E 테스트) |
 | **server-actions** | Server Actions 패턴 (Zod 유효성 검사, 에러 처리) |
 
@@ -93,6 +124,36 @@ claude-skills/
 |------|------|
 | **react-best-practices** | React + Next.js 모범 사례 (상태 관리, 성능 최적화) |
 | **tailwind-patterns** | Tailwind CSS 패턴 (테마 시스템, 다크모드, 애니메이션) |
+
+## Rules
+
+| 규칙 | 적용 대상 | 설명 |
+|------|----------|------|
+| **agents.md** | `agents/**/*.md` | 에이전트 작성 규칙 (네이밍, 역할/도구 정의) |
+| **skills.md** | `skills/**/*.md` | 스킬 작성 규칙 (트리거 조건, 코드 템플릿) |
+| **teams.md** | `teams/**/*.md` | 팀 구성 규칙 (워크플로, 입출력 형식) |
+
+## Configuration
+
+| 파일 | 설명 |
+|------|------|
+| **settings.json** | Claude Code 설정 (권한, 모델, 훅, 상태표시줄) |
+| **notify.sh** | 알림 훅 스크립트 (macOS/Linux/Windows 시스템 알림 + Slack 웹훅) |
+
+### notify.sh 환경 변수
+
+| 환경 변수 | 기본값 | 설명 |
+|----------|--------|------|
+| `CLAUDE_SYSTEM_ALERT` | `0` | `1`로 설정 시 OS 시스템 알림 활성화 (macOS/Linux/Windows) |
+| `SLACK_WEBHOOK_URL` | - | Slack Incoming Webhook URL. 설정 시 Slack 알림 전송 |
+| `SLACK_CHANNEL_ID` | - | Slack 멘션 대상 채널/사용자 ID |
+
+```bash
+# .zshrc 또는 .bashrc에 추가
+export CLAUDE_SYSTEM_ALERT=1
+export SLACK_WEBHOOK_URL="https://hooks.slack.com/services/XXX/YYY/ZZZ"
+export SLACK_CHANNEL_ID="U01XXXXXXXX"
+```
 
 ## 기술 스택
 
