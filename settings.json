@@ -53,7 +53,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash \"$HOME/.claude/notify.sh\""
+            "command": "[ -f \"$HOME/.claude/notify.sh\" ] && bash \"$HOME/.claude/notify.sh\""
           }
         ]
       }
