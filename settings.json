@@ -40,6 +40,17 @@
           }
         ]
       }
+    ],
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '{\"title\": \"Claude Code\", \"message\": \"작업이 완료되었습니다.\"}' | bash \"$HOME/.claude/notify.sh\""
+          }
+        ]
+      }
     ]
   },
   "effortLevel": "high",
