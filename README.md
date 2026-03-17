@@ -17,11 +17,17 @@ $ ln -s $(pwd)/teams $HOME/.claude/teams
 # setting rules
 $ ln -s $(pwd)/rules $HOME/.claude/rules
 
+# setting hooks
+$ ln -s $(pwd)/hooks $HOME/.claude/hooks
+
 # setting settings.json
 $ ln -s $(pwd)/settings.json $HOME/.claude/settings.json
 
 # setting notify.sh
 $ ln -s $(pwd)/notify.sh $HOME/.claude/notify.sh
+
+# setting statusline.sh
+$ ln -s $(pwd)/statusline.sh $HOME/.claude/statusline.sh
 ```
 
 ## 프로젝트 구조
@@ -36,12 +42,18 @@ claude-skills/
 │   ├── team-reviewer.md
 │   ├── tech-architect.md
 │   └── ux-expert.md
+├── hooks/
+│   ├── commit-session.sh
+│   └── load-recent-changes.sh
 ├── rules/
 │   ├── agents.md
 │   ├── skills.md
 │   └── teams.md
 ├── skills/
 │   ├── cache-components/
+│   ├── diff-commit/
+│   ├── manage-skills/
+│   ├── merge-worktree/
 │   ├── nestjs-auth/
 │   ├── nestjs-config/
 │   ├── nestjs-crud/
@@ -59,13 +71,17 @@ claude-skills/
 │   ├── nextjs-shadcn/
 │   ├── nextjs-testing/
 │   ├── react-best-practices/
+│   ├── request-pr/
 │   ├── review-team/
 │   ├── server-actions/
-│   └── tailwind-patterns/
+│   ├── tailwind-patterns/
+│   └── verify-implementation/
 ├── teams/
 │   └── review-team.md
+├── CLAUDE.md
 ├── notify.sh
-└── settings.json
+├── settings.json
+└── statusline.sh
 ```
 
 ## Agents
@@ -125,6 +141,33 @@ claude-skills/
 | **react-best-practices** | React + Next.js 모범 사례 (상태 관리, 성능 최적화) |
 | **tailwind-patterns** | Tailwind CSS 패턴 (테마 시스템, 다크모드, 애니메이션) |
 
+### Utility
+
+| 스킬 | 설명 |
+|------|------|
+| **diff-commit** | 현재 변경사항을 분석하여 논리적 작업 단위별로 분리된 커밋 자동 생성 |
+| **manage-skills** | 세션 변경사항을 분석하여 스킬 누락을 탐지하고, 새 스킬 생성 또는 기존 스킬 업데이트 |
+| **merge-worktree** | 현재 worktree 브랜치를 메인 브랜치에 squash-merge |
+| **request-pr** | 커밋 히스토리를 분석하여 지정 브랜치로 GitHub PR 생성 (한글) |
+| **verify-implementation** | 프로젝트의 모든 verify 스킬을 순차 실행하여 통합 검증 보고서 생성 |
+
+## Hooks
+
+### Shell Scripts (`hooks/`)
+
+| 훅 | 트리거 | 설명 |
+|----|--------|------|
+| **commit-session.sh** | Stop | 세션 종료 시 변경사항을 자동 커밋 (Claude headless 모드로 커밋 메시지 생성, CHANGELOG 자동 업데이트) |
+| **load-recent-changes.sh** | SessionStart | 세션 시작 시 최근 CHANGELOG 엔트리와 git log를 컨텍스트로 로드 |
+
+### Inline Hooks (`settings.json`)
+
+| 트리거 | 매처 | 설명 |
+|--------|------|------|
+| **PreToolUse** | Bash | 위험 명령 차단 (`rm -rf /`, `git push --force`, `DROP TABLE` 등 감지 시 실행 중단) |
+| **Notification** | 전체 | 알림 발생 시 `notify.sh` 실행 |
+| **Stop** | 전체 | 작업 완료 알림 전송 + `commit-session.sh` 비동기 실행 |
+
 ## Rules
 
 | 규칙 | 적용 대상 | 설명 |
@@ -137,8 +180,28 @@ claude-skills/
 
 | 파일 | 설명 |
 |------|------|
+| **CLAUDE.md** | 프로젝트 규칙 (코드 스타일, 아키텍처 규칙, Git 워크플로, 작업 기록 규칙) |
 | **settings.json** | Claude Code 설정 (권한, 모델, 훅, 상태표시줄) |
 | **notify.sh** | 알림 훅 스크립트 (macOS/Linux/Windows 시스템 알림 + Slack 웹훅) |
+| **statusline.sh** | Claude Code 상태표시줄 스크립트 (작업 디렉토리, git 브랜치, 모델명, 컨텍스트 사용률, 세션명 표시) |
+
+### settings.json 주요 설정
+
+| 설정 | 값 | 설명 |
+|------|----|------|
+| `defaultMode` | `bypassPermissions` | 기본 권한 모드 (자동 승인) |
+| `effortLevel` | `high` | 에이전트 노력 수준 |
+| `teammateMode` | `in-process` | 팀메이트 실행 방식 (인프로세스) |
+| `includeCoAuthoredBy` | `true` | 커밋에 Co-Authored-By 자동 추가 |
+| `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS` | `1` | 에이전트 팀 기능 활성화 (env) |
+
+### 안전 Deny 규칙
+
+```
+git push, git push *, rm -rf *, git reset --hard*, DROP *, DELETE FROM *
+```
+
+위 패턴이 포함된 Bash 명령은 자동 차단되어 사용자 확인을 요구합니다.
 
 ### notify.sh 환경 변수
 
