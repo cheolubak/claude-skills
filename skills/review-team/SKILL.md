@@ -1,6 +1,7 @@
 ---
 name: review-team
 description: 4인 리뷰 팀(UX 전문가, 기술 아키텍트, 비판적 검토자, 최종 검토자)을 생성하여 서비스/기능을 다각도로 분석합니다.
+argument-hint: "<원하는 작업>"
 ---
 
 분석 대상: $ARGUMENTS

@@ -17,7 +17,6 @@
     ],
     "defaultMode": "bypassPermissions"
   },
-  "model": "opus",
   "hooks": {
     "PreToolUse": [
       {
@@ -48,12 +47,22 @@
           {
             "type": "command",
             "command": "echo '{\"title\": \"Claude Code\", \"message\": \"작업이 완료되었습니다.\"}' | bash \"$HOME/.claude/notify.sh\""
+          },
+          {
+            "type": "command",
+            "command": "\"$HOME\"/.claude/hooks/commit-session.sh",
+            "timeout": 120,
+            "async": true
           }
         ]
       }
     ]
   },
+  "statusLine": {
+    "type": "command",
+    "command": "bash $HOME/.claude/statusline.sh"
+  },
   "effortLevel": "high",
-  "teammateMode": "in-process",
-  "skipDangerousModePermissionPrompt": true
+  "skipDangerousModePermissionPrompt": true,
+  "teammateMode": "in-process"
 }
