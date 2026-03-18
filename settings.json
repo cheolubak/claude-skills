@@ -8,8 +8,6 @@
   "permissions": {
     "allow": [],
     "deny": [
-      "Bash(git push *)",
-      "Bash(git push)",
       "Bash(rm -rf *)",
       "Bash(git reset --hard*)",
       "Bash(DROP *)",
