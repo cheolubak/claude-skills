@@ -1,13 +1,13 @@
 ---
 name: merge-worktree
-description: Squash-merge the current worktree branch into the main branch (or a specified target). Analyzes git history and source code to craft a comprehensive commit message.
+description: Merge the current worktree branch into the main branch (or a specified target). Analyzes commits to decide squash or rebase strategy, then crafts comprehensive commit messages.
 argument-hint: "[target-branch]"
 disable-model-invocation: true
 ---
 
 # Merge Worktree
 
-Squash-merge the current worktree branch back into the target branch with a comprehensive, structured commit message.
+Merge the current worktree branch back into the target branch. Automatically chooses between squash merge (single cohesive task) and rebase merge (independent commits).
 
 ## Current context
 
@@ -61,6 +61,21 @@ This is the most critical phase. You must deeply understand what was done before
 
 6. **Identify the dominant type**: Determine which conventional commit type (`feat`, `fix`, `refactor`, `docs`, `chore`, `test`) best represents the overall body of work.
 
+7. **Determine merge strategy**: Analyze the commits to decide between squash and rebase.
+
+   **Choose SQUASH merge** when commits form a single cohesive task:
+   - All commits contribute to one feature, fix, or refactor
+   - Commits are incremental steps of the same work (e.g., "add model", "add controller", "add tests" for one feature)
+   - There are WIP/fixup/checkpoint commits that should be consolidated
+   - The commit history is messy and would not be useful to preserve
+
+   **Choose REBASE merge** when commits are independent:
+   - Commits address distinctly different concerns (e.g., one commit adds a feature, another fixes an unrelated bug)
+   - Each commit has a clear, self-contained purpose and a meaningful message
+   - Preserving the individual commit history adds value for future readers
+
+   State your decision and reasoning before proceeding.
+
 ---
 
 ### Phase 3: Target branch preparation
@@ -75,29 +90,51 @@ This is the most critical phase. You must deeply understand what was done before
 
 ---
 
-### Phase 4: Squash merge
+### Phase 4: Merge
 
 1. **Ensure target branch is checked out** in the original repo:
    ```
    git -C <original-repo-path> checkout <target>
    ```
 
-2. **Perform the squash merge**:
+2. **Execute the chosen merge strategy**:
+
+   #### If SQUASH merge (decided in Phase 2 step 7):
+
    ```
    git -C <original-repo-path> merge --squash <worktree-branch>
    ```
 
-3. **Handle conflicts**: If the merge reports conflicts:
-    - List all conflicted files
-    - Show the conflict markers
-    - **Stop and report to the user** — do NOT attempt to auto-resolve
-    - Tell them to resolve conflicts in the original repo and then run the skill again
+   - **Handle conflicts**: If the merge reports conflicts:
+     - List all conflicted files
+     - Show the conflict markers
+     - **Stop and report to the user** — do NOT attempt to auto-resolve
+     - Tell them to resolve conflicts in the original repo and then run the skill again
+   - If the merge succeeds (no conflicts), proceed to Phase 5A.
 
-4. If the merge succeeds (no conflicts), proceed to Phase 5.
+   #### If REBASE merge (decided in Phase 2 step 7):
+
+   First, rebase the worktree branch onto the target in the original repo:
+   ```
+   git -C <original-repo-path> rebase <target> <worktree-branch>
+   ```
+
+   - **Handle conflicts**: If rebase reports conflicts:
+     - Run `git -C <original-repo-path> rebase --abort` to undo
+     - **Stop and report to the user** — do NOT attempt to auto-resolve
+     - Tell them to resolve conflicts manually and then run the skill again
+   - If the rebase succeeds, fast-forward the target branch:
+     ```
+     git -C <original-repo-path> checkout <target>
+     git -C <original-repo-path> merge --ff-only <worktree-branch>
+     ```
+   - Proceed to Phase 5B.
 
 ---
 
-### Phase 5: Craft commit message and commit
+### Phase 5: Commit message and commit
+
+#### Phase 5A: Squash merge commit
 
 Based on your Phase 2 research, write the commit message following this **exact structure**:
 
@@ -130,6 +167,10 @@ EOF
 )"
 ```
 
+#### Phase 5B: Rebase merge — no additional commit needed
+
+The rebase preserves all original commits, so no new commit message is needed. Skip to Phase 6.
+
 ---
 
 ### Phase 6: Verification
@@ -137,8 +178,8 @@ EOF
 1. **Confirm the commit**: Run `git -C <original-repo-path> log --oneline -3` and show the result to the user.
 
 2. **Report summary**: Tell the user:
-    - The final commit hash
-    - The commit summary line
+    - The merge strategy used (squash or rebase) and why
+    - The final commit hash (for squash) or the list of rebased commits (for rebase)
     - Which branch it was merged into
     - Remind them the worktree branch still exists — they can delete it with `git worktree remove <path>` if no longer needed
     - Remind them to `git push` if they want to push to the remote

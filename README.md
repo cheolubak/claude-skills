@@ -147,7 +147,7 @@ claude-skills/
 |------|------|
 | **diff-commit** | 현재 변경사항을 분석하여 논리적 작업 단위별로 분리된 커밋 자동 생성 |
 | **manage-skills** | 세션 변경사항을 분석하여 스킬 누락을 탐지하고, 새 스킬 생성 또는 기존 스킬 업데이트 |
-| **merge-worktree** | 현재 worktree 브랜치를 메인 브랜치에 squash-merge |
+| **merge-worktree** | 현재 worktree 브랜치를 메인 브랜치에 머지 (하나의 작업이면 squash, 독립적 커밋이면 rebase) |
 | **request-pr** | 커밋 히스토리를 분석하여 지정 브랜치로 GitHub PR 생성 (한글) |
 | **verify-implementation** | 프로젝트의 모든 verify 스킬을 순차 실행하여 통합 검증 보고서 생성 |
 
