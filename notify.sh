@@ -1,6 +1,11 @@
 #!/bin/bash
-# Claude Code Notification Hook
-# stdin으로 JSON을 받아서 macOS 알림 + Slack 웹훅 전송
+# Claude Code Notification Engine
+# stdin JSON 형식:
+#   필수: { "title": "...", "message": "..." }
+#   선택: { "blocks": [...] }  → Slack Block Kit 사용
+#
+# blocks가 있으면 Slack은 Block Kit으로 전송, 없으면 plain text
+# 시스템 알림은 항상 title + message 사용
 
 json=$(cat)
 message=$(echo "$json" | jq -r '.message // empty')
@@ -10,7 +15,7 @@ if [ -z "$message" ]; then
   exit 0
 fi
 
-# 시스템 알림 (CLAUDE_SYSTEM_ALERT=1일 때만)
+# --- 시스템 알림 (CLAUDE_SYSTEM_ALERT=1일 때만) ---
 if [ "${CLAUDE_SYSTEM_ALERT:-0}" = "1" ]; then
   case "$(uname -s)" in
     Darwin)
@@ -27,12 +32,25 @@ if [ "${CLAUDE_SYSTEM_ALERT:-0}" = "1" ]; then
   esac
 fi
 
-# Slack 웹훅
+# --- Slack 웹훅 ---
 SLACK_WEBHOOK_URL="${SLACK_WEBHOOK_URL:-}"
 SLACK_CHANNEL_ID="${SLACK_CHANNEL_ID:-}"
 
-if [ -n "$SLACK_WEBHOOK_URL" ] && [ -n "$SLACK_CHANNEL_ID" ]; then
-  curl -s -X POST "$SLACK_WEBHOOK_URL" \
-    -H 'Content-Type: application/json' \
-    -d "$(jq -n --arg text "<@${SLACK_CHANNEL_ID}> $title: $message" '{text: $text, "link_names": 1}')"
+if [ -z "$SLACK_WEBHOOK_URL" ] || [ -z "$SLACK_CHANNEL_ID" ]; then
+  exit 0
 fi
+
+# blocks 필드 존재 여부 확인
+has_blocks=$(echo "$json" | jq -e '.blocks | length > 0' >/dev/null 2>&1 && echo "yes" || echo "no")
+
+if [ "$has_blocks" = "yes" ]; then
+  # Block Kit 전송
+  payload=$(echo "$json" | jq '{blocks: .blocks}')
+else
+  # Plain text 전송
+  payload=$(jq -n --arg text "<@${SLACK_CHANNEL_ID}> $title: $message" '{text: $text, "link_names": 1}')
+fi
+
+curl -s -X POST "$SLACK_WEBHOOK_URL" \
+  -H 'Content-Type: application/json' \
+  -d "$payload"
