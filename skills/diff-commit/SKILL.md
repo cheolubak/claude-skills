@@ -82,13 +82,11 @@ Based on your Phase 2 analysis, group all changes into logical commit units.
 - path/to/file4.md (modified)
 ```
 
-**Ask the user for confirmation** before proceeding. The user may:
-- Approve the plan as-is
-- Request changes to the grouping
-- Request changes to commit messages
-- Skip certain files
+**커밋 계획을 출력한 후 바로 Phase 4로 진행합니다.** 별도 확인을 묻지 않습니다.
 
-**Wait for user approval before proceeding to Phase 4.**
+단, 다음 경우에만 사용자 확인을 요청합니다:
+- 10개 이상의 커밋으로 분리되는 경우
+- 민감한 파일(.env, credentials 등)이 포함된 경우
 
 ---
 
@@ -158,7 +156,7 @@ For each commit group (in dependency order):
 
 - **Never force-push or use destructive git operations** without explicit user confirmation.
 - **Never skip pre-commit hooks** (`--no-verify`).
-- **Always ask for confirmation** before creating commits (Phase 3).
+- **확인 없이 바로 커밋을 진행**합니다. 단, 민감한 파일 포함 또는 10개 이상 커밋 분리 시에만 확인을 요청합니다.
 - If a pre-commit hook fails, stop and report the error — do NOT retry with `--no-verify`.
 - If `git add -p` (interactive staging) is needed but unavailable, commit the entire file with the most relevant group and clearly note this limitation.
 - If anything unexpected happens at any phase, **stop and explain** rather than guessing.
