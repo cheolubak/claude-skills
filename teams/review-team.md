@@ -1,14 +1,17 @@
 ---
 name: review-team
-description: 4인 다각도 리뷰 팀 - UX, 기술, 리스크 관점에서 분석 후 종합 판정
+description: 7인 토론 기반 리뷰 팀 - 3개 파트(UX, 기술, 리스크)별 2인 토론 후 종합 판정
 members:
   - ux-expert
+  - ux-researcher
   - tech-architect
+  - system-engineer
   - devils-advocate
+  - risk-analyst
   - team-reviewer
 ---
 
-4명의 전문가가 서비스, 기능, 아키텍처를 다각도로 분석하고 종합 판정을 내리는 리뷰 팀입니다.
+7명의 전문가가 3개 분석 파트에서 2인 토론을 거쳐 깊이 있는 분석을 도출하고, 최종 검토자가 종합 판정을 내리는 리뷰 팀입니다.
 
 ## 사용 시점
 
@@ -19,42 +22,51 @@ members:
 
 ## 팀 구성
 
-| 역할 | 에이전트 | 핵심 관점 |
-|------|---------|-----------|
-| UX 전문가 | `ux-expert` | 사용자 경험, 사용성, 접근성, 사용자 흐름 |
-| 기술 아키텍트 | `tech-architect` | 시스템 설계, 확장성, 성능, 기술 스택 |
-| 비판적 검토자 | `devils-advocate` | 가정 검증, 위험 탐색, 맹점 발견, 숨겨진 비용 |
-| 최종 검토자 | `team-reviewer` | 관점 종합, 충돌 조율, 실행 가능한 결론 도출 |
+### UX 파트
+| 역할 | 에이전트 | 관점 |
+|------|---------|------|
+| UX 전문가 | `ux-expert` | 경험/직관 기반 사용성, 접근성, 사용자 흐름 |
+| UX 리서처 | `ux-researcher` | 데이터/리서치 기반 사용자 연구, 정량적 검증 |
+
+### Tech 파트
+| 역할 | 에이전트 | 관점 |
+|------|---------|------|
+| 기술 아키텍트 | `tech-architect` | 시스템 설계, 확장성, 기술 스택 |
+| 시스템 엔지니어 | `system-engineer` | 구현 현실성, 운영, DevOps |
+
+### Risk 파트
+| 역할 | 에이전트 | 관점 |
+|------|---------|------|
+| 비판적 검토자 | `devils-advocate` | 정성적 도전, 가정 검증, 맹점 발견 |
+| 리스크 분석가 | `risk-analyst` | 정량적 리스크 평가, 시나리오 모델링 |
+
+### 종합
+| 역할 | 에이전트 | 관점 |
+|------|---------|------|
+| 최종 검토자 | `team-reviewer` | 3개 파트 종합, 충돌 조율, 최종 판정 |
 
 ## 워크플로우
 
 ```
-Phase 1 (병렬 분석)
-├── ux-expert: 사용자 흐름, 인터페이스, 접근성, 휴리스틱 평가
-├── tech-architect: 아키텍처, 기술 스택, 데이터 설계, 성능/보안
-└── devils-advocate: 비즈니스 가정, 기술 위험, 사용자 관점 도전, 숨겨진 비용
+Phase 1 (3개 파트 병렬 토론 — 각 3라운드)
+├── UX 파트
+│   ├── Round 1: ux-expert → 초기 분석 제시
+│   ├── Round 2: ux-researcher → 데이터 기반 응답/도전
+│   └── Round 3: ux-expert → 종합 결론 도출
+├── Tech 파트
+│   ├── Round 1: tech-architect → 초기 설계 분석
+│   ├── Round 2: system-engineer → 구현 관점 검증/도전
+│   └── Round 3: tech-architect → 종합 결론 도출
+└── Risk 파트
+    ├── Round 1: devils-advocate → 초기 리스크 분석
+    ├── Round 2: risk-analyst → 정량적 평가/보완
+    └── Round 3: devils-advocate → 종합 결론 도출
 
-Phase 2 (순차 종합)
-└── team-reviewer: 3개 관점 종합 → 충돌 해소 → 최종 판정 → 액션 아이템
+Phase 2 (종합 판정)
+└── team-reviewer: 3개 파트 토론 결과 종합 → 최종 판정
 ```
 
-### Phase 1: 병렬 분석
-
-3명의 전문가가 독립적으로 분석을 수행합니다:
-
-- **ux-expert**: 페르소나 정의, 마찰 지점 맵, 우선순위별 개선안, 벤치마크 참조
-- **tech-architect**: 기술 스택 제안, ADR 작성, 구현 로드맵, 시스템 다이어그램
-- **devils-advocate**: 가정 목록 테이블, 위험 분석, 핵심 질문 목록, Pre-mortem 분석
-
-### Phase 2: 종합 검토
-
-**team-reviewer**가 Phase 1의 모든 결과를 종합합니다:
-
-1. 관점별 핵심 메시지 정리
-2. 합의 사항 및 충돌점 식별
-3. 충돌 해소 및 판정
-4. 최종 판정: **승인(Go)** / **조건부 승인** / **재검토(Rework)** / **보류(Hold)**
-5. 우선순위화된 액션 아이템 도출
+각 토론 라운드마다 Slack 알림이 전송되어 실시간으로 진행 상황을 확인할 수 있습니다.
 
 ## 호출 방법
 

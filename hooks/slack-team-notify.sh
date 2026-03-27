@@ -12,7 +12,7 @@ REVIEW_SUBJECT="${3:-}"
 CONTENT=$(cat)
 [ -z "$CONTENT" ] && exit 0
 
-SLACK_WEBHOOK_URL="${SLACK_WEBHOOK_URL:-}"
+SLACK_WEBHOOK_URL="${SLACK_CLAUDE_TEAM_WEBHOOK_URL:-}"
 SLACK_CHANNEL_ID="${SLACK_CLAUDE_TEAM_CHANNEL_ID:-}"
 
 if [ -z "$SLACK_WEBHOOK_URL" ] || [ -z "$SLACK_CHANNEL_ID" ]; then
@@ -22,8 +22,11 @@ fi
 # 에이전트별 이모지 매핑
 case "$AGENT_NAME" in
   ux-expert)       EMOJI=":art:";         ROLE="UX 전문가" ;;
+  ux-researcher)   EMOJI=":bar_chart:";   ROLE="UX 리서처" ;;
   tech-architect)  EMOJI=":building_construction:"; ROLE="기술 아키텍트" ;;
+  system-engineer) EMOJI=":wrench:";      ROLE="시스템 엔지니어" ;;
   devils-advocate) EMOJI=":imp:";         ROLE="비판적 검토자" ;;
+  risk-analyst)    EMOJI=":chart_with_upwards_trend:"; ROLE="리스크 분석가" ;;
   team-reviewer)   EMOJI=":trophy:";      ROLE="최종 검토자" ;;
   *)               EMOJI=":robot_face:";  ROLE="$AGENT_NAME" ;;
 esac
@@ -48,8 +51,8 @@ fi
 # Block Kit 구성
 blocks='[]'
 
-# 1. 헤더: 에이전트 역할 + Phase 정보
-header_text="${EMOJI} *${ROLE}* 분석 완료"
+# 1. 헤더: 에이전트 역할 + Phase/Round 정보
+header_text="${EMOJI} *${ROLE}*"
 if [ -n "$PHASE" ]; then
   header_text="${header_text}  |  ${PHASE}"
 fi
