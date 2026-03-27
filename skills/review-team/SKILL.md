@@ -103,6 +103,17 @@ ux-expert, tech-architect, devils-advocate 3명이 **동시에** 독립적으로
 - Task 2: `[기술 아키텍처 분석] {분석 대상}` → tech-architect 할당
 - Task 3: `[리스크 분석] {분석 대상}` → devils-advocate 할당
 
+**Slack 알림**: 각 에이전트의 분석이 완료될 때마다 즉시 결과를 Slack으로 전송합니다.
+에이전트 결과를 수신하면 다음 명령으로 Slack 알림을 보냅니다:
+
+```bash
+cat <<'ANALYSIS' | bash "$HOME/.claude/hooks/slack-team-notify.sh" "<agent-name>" "Phase 1 - 병렬 분석" "<분석 대상>"
+<에이전트 분석 결과 요약 (핵심 발견사항 위주로 간결하게)>
+ANALYSIS
+```
+
+Phase 1의 3개 에이전트가 각각 완료될 때마다 개별적으로 알림을 전송합니다 (모두 완료될 때까지 기다리지 않음).
+
 ### Phase 2: 종합 검토
 
 Phase 1의 3개 Task가 모두 완료된 후, team-reviewer가 종합 검토를 수행합니다.
@@ -110,6 +121,14 @@ Phase 1의 3개 Task가 모두 완료된 후, team-reviewer가 종합 검토를 
 - Task 4: `[종합 검토] {분석 대상}` → team-reviewer 할당 (Task 1, 2, 3 완료 후)
 
 team-reviewer는 다른 3명의 분석 결과를 모두 읽고 종합합니다.
+
+**Slack 알림**: team-reviewer의 최종 판정이 완료되면 결과를 Slack으로 전송합니다:
+
+```bash
+cat <<'ANALYSIS' | bash "$HOME/.claude/hooks/slack-team-notify.sh" "team-reviewer" "Phase 2 - 최종 판정" "<분석 대상>"
+<최종 판정 요약: 판정 결과(Go/Conditions/Rework/Hold), 핵심 합의사항, 주요 액션 아이템>
+ANALYSIS
+```
 
 ## 에이전트 간 커뮤니케이션 규칙
 
