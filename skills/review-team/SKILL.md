@@ -6,13 +6,13 @@ argument-hint: "<원하는 작업>"
 
 분석 대상: $ARGUMENTS
 
-다음 7명의 teammate로 구성된 에이전트 팀을 생성하여 위 대상을 3개 파트별 토론을 통해 다각도로 분석합니다.
+다음 7명의 에이전트로 구성된 리뷰 팀이 위 대상을 3개 파트별 독립 세션 토론을 통해 다각도로 분석합니다.
 
-## 팀 생성
+## 팀 구성
 
 ### UX 파트 (2인 토론)
 
-#### Teammate 1: UX 전문가 (ux-expert)
+#### ux-expert — UX 전문가
 
 **역할**: 경험과 직관에 기반한 UX 심층 분석. 토론의 **주도자**로서 초기 분석을 제시하고 최종 결론을 도출합니다.
 
@@ -26,7 +26,7 @@ argument-hint: "<원하는 작업>"
 
 **산출물**: 페르소나 정의, 마찰 지점 맵, 우선순위별 개선안, 벤치마크 참조
 
-#### Teammate 2: UX 리서처 (ux-researcher)
+#### ux-researcher — UX 리서처
 
 **역할**: 데이터와 리서치 방법론에 기반한 UX 검증. UX 전문가의 분석에 **데이터 근거로 도전하고 보완**합니다.
 
@@ -41,7 +41,7 @@ argument-hint: "<원하는 작업>"
 
 ### Tech 파트 (2인 토론)
 
-#### Teammate 3: 기술 아키텍트 (tech-architect)
+#### tech-architect — 기술 아키텍트
 
 **역할**: 시스템 아키텍처 설계 분석. 토론의 **주도자**로서 설계 방향을 제시하고 최종 결론을 도출합니다.
 
@@ -56,7 +56,7 @@ argument-hint: "<원하는 작업>"
 
 **산출물**: 기술 스택 제안 테이블, ADR, 구현 로드맵, Mermaid 시스템 다이어그램
 
-#### Teammate 4: 시스템 엔지니어 (system-engineer)
+#### system-engineer — 시스템 엔지니어
 
 **역할**: 구현과 운영 관점에서 설계 검증. 아키텍트의 설계에 **현실성 검증으로 도전하고 보완**합니다.
 
@@ -71,7 +71,7 @@ argument-hint: "<원하는 작업>"
 
 ### Risk 파트 (2인 토론)
 
-#### Teammate 5: 비판적 검토자 (devils-advocate)
+#### devils-advocate — 비판적 검토자
 
 **역할**: 정성적 위험 탐색과 가정 도전. 토론의 **주도자**로서 위험을 드러내고 최종 결론을 도출합니다.
 
@@ -85,7 +85,7 @@ argument-hint: "<원하는 작업>"
 
 **산출물**: 가정 목록 테이블, 위험 분석, 핵심 질문 목록, Pre-mortem 분석
 
-#### Teammate 6: 리스크 분석가 (risk-analyst)
+#### risk-analyst — 리스크 분석가
 
 **역할**: 정량적 리스크 평가와 완화 전략 설계. 비판적 검토자의 분석에 **정량적 프레임워크로 도전하고 보완**합니다.
 
@@ -100,7 +100,7 @@ argument-hint: "<원하는 작업>"
 
 ### 종합 (1인)
 
-#### Teammate 7: 최종 검토자 (team-reviewer)
+#### team-reviewer — 최종 검토자
 
 **역할**: 3개 파트의 토론 결과를 종합하여 충돌을 조율하고 실행 가능한 결론을 도출합니다.
 
@@ -115,69 +115,69 @@ argument-hint: "<원하는 작업>"
 
 ---
 
-## 워크플로우
+## 워크플로우 — 독립 세션 실행
 
-### Phase 1: 3개 파트 병렬 토론
+각 파트가 **별도의 `claude -p` 세션**에서 독립적으로 실행됩니다. Slack 알림은 Pre/PostToolUse 훅이 자동 처리합니다.
 
-3개 파트가 **동시에** 각각 3라운드 토론을 수행합니다. 각 파트는 독립적으로 진행되며, **매 라운드마다 에이전트의 실제 발언 전문을 Slack으로 전송**합니다.
-
-#### Slack 알림 규칙
-
-에이전트로부터 응답을 받을 때마다 **응답 전문(full response)**을 Slack으로 전송합니다. 요약하지 않습니다.
+### Step 1: 작업 디렉토리 생성 및 분석 대상 저장
 
 ```bash
-cat <<'MSG' | bash "$HOME/.claude/hooks/slack-team-notify.sh" "<agent-name>" "<파트 토론 — Round N 라운드명>" "<분석 대상>"
-<에이전트 응답 전문 — 요약하지 말고 전체 내용을 그대로 전달>
-MSG
+REVIEW_DIR=$(mktemp -d /tmp/review-team-XXXXXX) && echo "$REVIEW_DIR"
 ```
 
-Slack section 블록의 3000자 제한은 스크립트가 자동으로 처리하므로, 오케스트레이터는 전문을 그대로 전달하면 됩니다.
+분석 대상 전문을 파일로 저장합니다:
+```bash
+cat <<'SUBJECT' > "$REVIEW_DIR/subject.md"
+<위 분석 대상 $ARGUMENTS 전문을 여기에 삽입>
+SUBJECT
+```
 
-#### 토론 프로토콜 (각 파트 동일)
+### Step 2: Phase 1 시작 알림
 
-**오케스트레이터(나)가 직접 토론을 중재**합니다:
+```bash
+bash "$HOME/.claude/hooks/slack-team-progress.sh" "review-team" "start" "Phase 1 시작 — UX/Tech/Risk 3개 파트 병렬 토론" "<분석 대상 요약>"
+```
 
-**UX 파트 토론 진행**:
+### Step 3: 3개 파트 병렬 실행
 
-1. **Round 1 — 초기 분석**: ux-expert에게 분석 대상에 대한 초기 UX 분석을 요청합니다.
-   → 응답 수신 즉시 **전문을 Slack 전송** (`"ux-expert"` `"UX 토론 — Round 1 초기 분석"`)
+3개의 독립 세션을 **동시에** 실행합니다. 각 세션은 별도의 `claude -p` 프로세스로 동작합니다:
 
-2. **Round 2 — 도전/보완**: ux-researcher에게 Round 1의 ux-expert 응답 전문을 전달하며, 데이터 기반 도전과 보완을 요청합니다.
-   → 응답 수신 즉시 **전문을 Slack 전송** (`"ux-researcher"` `"UX 토론 — Round 2 도전/보완"`)
+```bash
+bash "$HOME/.claude/hooks/run-review-part.sh" "review-team" "UX" "ux-expert" "ux-researcher" "$REVIEW_DIR/subject.md" "$REVIEW_DIR" &
+bash "$HOME/.claude/hooks/run-review-part.sh" "review-team" "Tech" "tech-architect" "system-engineer" "$REVIEW_DIR/subject.md" "$REVIEW_DIR" &
+bash "$HOME/.claude/hooks/run-review-part.sh" "review-team" "Risk" "devils-advocate" "risk-analyst" "$REVIEW_DIR/subject.md" "$REVIEW_DIR" &
+wait
+```
 
-3. **Round 3 — 종합 결론**: ux-expert에게 Round 2의 ux-researcher 응답 전문을 전달하며, 이를 반영한 최종 UX 분석 결론을 요청합니다.
-   → 응답 수신 즉시 **전문을 Slack 전송** (`"ux-expert"` `"UX 토론 — Round 3 종합 결론"`)
+**주의**: 이 명령은 3개 세션이 모두 완료될 때까지 대기합니다. `timeout` 600000(10분)을 설정하세요.
 
-**Tech 파트** — 동일 프로토콜:
-- Round 1: tech-architect → 초기 설계 분석 → Slack 전문 전송
-- Round 2: system-engineer → 구현 관점 도전/보완 → Slack 전문 전송
-- Round 3: tech-architect → 종합 결론 → Slack 전문 전송
+### Step 4: Phase 1 완료 확인
 
-**Risk 파트** — 동일 프로토콜:
-- Round 1: devils-advocate → 초기 리스크 분석 → Slack 전문 전송
-- Round 2: risk-analyst → 정량적 평가/보완 → Slack 전문 전송
-- Round 3: devils-advocate → 종합 결론 → Slack 전문 전송
+3개 파트 결과 파일을 확인합니다:
+```bash
+ls -la "$REVIEW_DIR"/*.md
+```
 
-#### Task 생성
+Phase 1 완료 알림:
+```bash
+bash "$HOME/.claude/hooks/slack-team-progress.sh" "review-team" "complete" "Phase 1 완료 — 3개 파트 토론 결과 수합"
+```
 
-Phase 1에서 생성할 Task:
-- Task 1: `[UX 토론] {분석 대상}` — ux-expert, ux-researcher 참여
-- Task 2: `[Tech 토론] {분석 대상}` — tech-architect, system-engineer 참여
-- Task 3: `[Risk 토론] {분석 대상}` — devils-advocate, risk-analyst 참여
+### Step 5: Phase 2 — 종합 판정 (독립 세션)
 
-3개 Task를 **병렬로** 진행합니다. 각 Task 내부에서 3라운드 토론을 순차적으로 수행합니다.
+```bash
+bash "$HOME/.claude/hooks/run-review-synthesis.sh" "review-team" "team-reviewer" "$REVIEW_DIR/subject.md" "$REVIEW_DIR" "UX" "Tech" "Risk"
+```
 
-### Phase 2: 종합 판정
+### Step 6: 최종 산출물 제출
 
-Phase 1의 3개 파트 토론이 모두 완료된 후, team-reviewer가 종합 검토를 수행합니다.
+Read 도구로 `$REVIEW_DIR/synthesis.md`를 읽어 사용자에게 최종 산출물로 제출합니다.
 
-- Task 4: `[종합 판정] {분석 대상}` → team-reviewer 할당 (Task 1, 2, 3 완료 후)
-
-team-reviewer에게 3개 파트의 **최종 결론(Round 3 결과)**을 모두 전달하며 종합 판정을 요청합니다.
-
-→ 응답 수신 즉시 **전문을 Slack 전송** (`"team-reviewer"` `"Phase 2 — 최종 판정"`)
+---
 
 ## 에이전트 간 토론 규칙
+
+각 파트 세션 내에서 3라운드 토론이 자동 수행됩니다:
 
 1. **Round 1 (주도자)**: 분석 대상에 대한 전문 영역 초기 분석을 제시합니다
 2. **Round 2 (도전자)**: Round 1 결과를 받아 다음을 수행합니다:
