@@ -37,6 +37,48 @@
             "command": "case \"$CLAUDE_TOOL_INPUT\" in *'rm -rf /'*|*'rm -rf ~'*|*'git push --force'*|*'git push -f '*|*'git reset --hard'*|*'DROP TABLE'*|*'DROP DATABASE'*) echo 'BLOCK: 위험한 명령이 감지되었습니다. 사용자에게 확인하세요.' >&2; exit 2;; esac"
           }
         ]
+      },
+      {
+        "matcher": "SendMessage",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$HOME/.claude/hooks/slack-agent-progress.sh\"",
+            "timeout": 10
+          }
+        ]
+      },
+      {
+        "matcher": "Agent",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$HOME/.claude/hooks/slack-agent-progress.sh\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "SendMessage",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$HOME/.claude/hooks/slack-agent-message.sh\"",
+            "timeout": 15
+          }
+        ]
+      },
+      {
+        "matcher": "Agent",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$HOME/.claude/hooks/slack-agent-message.sh\"",
+            "timeout": 15
+          }
+        ]
       }
     ],
     "Notification": [
