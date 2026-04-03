@@ -148,7 +148,7 @@ SUBJECT
 ### Step 3: Phase 1 시작 알림
 
 ```bash
-bash "$HOME/.claude/hooks/slack-team-progress.sh" "frontend-resume-review" "start" "Phase 1 시작 — 기술/프로젝트/커리어 3개 파트 병렬 검증" "<후보자명>"
+bash "$HOME/.claude/hooks/slack-team-progress.sh" "frontend-resume-review" "start" "Phase 1 시작 — 기술/프로젝트/커리어 3개 파트 병렬 검증" "<후보자명>" >/dev/null
 ```
 
 ### Step 4: 3개 파트 병렬 실행
@@ -173,7 +173,7 @@ ls -la "$REVIEW_DIR"/*.md
 
 Phase 1 완료 알림:
 ```bash
-bash "$HOME/.claude/hooks/slack-team-progress.sh" "frontend-resume-review" "complete" "Phase 1 완료 — 3개 파트 검증 결과 수합"
+bash "$HOME/.claude/hooks/slack-team-progress.sh" "frontend-resume-review" "complete" "Phase 1 완료 — 3개 파트 검증 결과 수합" >/dev/null
 ```
 
 ### Step 6: Phase 2 — 채용 판정 (독립 세션)

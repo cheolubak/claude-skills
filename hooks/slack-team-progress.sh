@@ -1,18 +1,23 @@
 #!/usr/bin/env bash
 # 팀 워크플로우 단계별 진행 상황 Slack 알림
-# 사용법: bash slack-team-progress.sh <team> <status> <message> [subject]
+# 사용법: bash slack-team-progress.sh <team> <status> <message> [subject] [thread_ts]
 #
 # status: start(시작), progress(진행중), complete(완료), finish(전체완료)
+# thread_ts: 스레드로 답장할 메시지의 타임스탬프 (chat.postMessage API 사용 시)
+#
+# SLACK_BOT_TOKEN 설정 시 chat.postMessage API를 사용하며,
+# 메시지 ts를 stdout으로 반환합니다 (스레드 활용용).
+# 미설정 시 Webhook 폴백 (스레드 미지원).
 #
 # 예시:
-#   bash "$HOME/.claude/hooks/slack-team-progress.sh" "review-team" "start" "Phase 1 — UX/Tech/Risk 3개 파트 병렬 토론" "결제 시스템"
-#   bash "$HOME/.claude/hooks/slack-team-progress.sh" "review-team" "complete" "UX 파트 토론 완료"
-#   bash "$HOME/.claude/hooks/slack-team-progress.sh" "review-team" "finish" "전체 리뷰 완료"
+#   ts=$(bash "$HOME/.claude/hooks/slack-team-progress.sh" "review-team" "start" "Phase 1 — 토론 시작" "결제 시스템")
+#   bash "$HOME/.claude/hooks/slack-team-progress.sh" "review-team" "progress" "토론 중" "" "$ts"
 
 TEAM="${1:-}"
 STATUS="${2:-progress}"
 MESSAGE="${3:-}"
 SUBJECT="${4:-}"
+THREAD_TS="${5:-}"
 
 [ -z "$MESSAGE" ] && exit 0
 command -v jq >/dev/null 2>&1 || exit 0
@@ -33,7 +38,13 @@ case "$TEAM" in
     ;;
 esac
 
-if [ -z "$SLACK_WEBHOOK_URL" ] || [ -z "$SLACK_CHANNEL_ID" ]; then
+if [ -z "$SLACK_CHANNEL_ID" ]; then
+  exit 0
+fi
+
+SLACK_BOT_TOKEN="${SLACK_BOT_TOKEN:-}"
+
+if [ -z "$SLACK_BOT_TOKEN" ] && [ -z "$SLACK_WEBHOOK_URL" ]; then
   exit 0
 fi
 
@@ -54,14 +65,37 @@ fi
 
 timestamp=$(date "+%Y-%m-%d %H:%M")
 
-payload=$(jq -n \
+blocks=$(jq -n \
   --arg text "$text" \
   --arg ts ":clock1: ${timestamp}" \
-  '{blocks: [
+  '[
     {type: "section", text: {type: "mrkdwn", text: $text}},
     {type: "context", elements: [{type: "mrkdwn", text: $ts}]}
-  ]}')
+  ]')
 
-curl -s -X POST "$SLACK_WEBHOOK_URL" \
-  -H 'Content-Type: application/json' \
-  -d "$payload" >/dev/null 2>&1
+if [ -n "$SLACK_BOT_TOKEN" ]; then
+  # chat.postMessage API (스레드 지원, ts 반환)
+  api_payload=$(jq -n \
+    --arg channel "$SLACK_CHANNEL_ID" \
+    --argjson blocks "$blocks" \
+    --arg fallback "${EMOJI} ${MESSAGE}" \
+    '{channel: $channel, blocks: $blocks, text: $fallback}')
+
+  if [ -n "$THREAD_TS" ]; then
+    api_payload=$(echo "$api_payload" | jq --arg ts "$THREAD_TS" '. + {thread_ts: $ts}')
+  fi
+
+  response=$(curl -s -X POST "https://slack.com/api/chat.postMessage" \
+    -H "Authorization: Bearer $SLACK_BOT_TOKEN" \
+    -H "Content-Type: application/json" \
+    -d "$api_payload")
+
+  # 메시지 ts 출력 (호출자가 스레드용으로 캡처)
+  echo "$response" | jq -r '.ts // empty'
+else
+  # Webhook 폴백 (스레드 미지원)
+  payload=$(jq -n --argjson blocks "$blocks" '{blocks: $blocks}')
+  curl -s -X POST "$SLACK_WEBHOOK_URL" \
+    -H 'Content-Type: application/json' \
+    -d "$payload" >/dev/null 2>&1
+fi

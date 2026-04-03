@@ -1,20 +1,20 @@
 ---
 name: review-team
-description: 7인 토론 기반 리뷰 팀(UX, 기술, 리스크 파트별 2인 토론 + 종합 판정)으로 서비스/기능을 다각도 분석합니다.
+description: 4인 리뷰 팀(UX, 기술, 리스크 파트별 1인 분석 + 종합 판정)으로 서비스/기능을 다각도 분석합니다.
 argument-hint: "<원하는 작업>"
 ---
 
 분석 대상: $ARGUMENTS
 
-다음 7명의 에이전트로 구성된 리뷰 팀이 위 대상을 3개 파트별 독립 세션 토론을 통해 다각도로 분석합니다.
+다음 4명의 에이전트로 구성된 리뷰 팀이 위 대상을 3개 파트별 독립 세션 분석을 통해 다각도로 분석합니다.
 
 ## 팀 구성
 
-### UX 파트 (2인 토론)
+### UX 파트
 
 #### ux-expert — UX 전문가
 
-**역할**: 경험과 직관에 기반한 UX 심층 분석. 토론의 **주도자**로서 초기 분석을 제시하고 최종 결론을 도출합니다.
+**역할**: 경험과 직관, 데이터에 기반한 UX 심층 분석.
 
 **핵심 질문**: "이 서비스를 처음 접하는 사용자가 어떻게 느낄까?"
 
@@ -23,27 +23,17 @@ argument-hint: "<원하는 작업>"
 - 인터페이스 설계 검토: 정보 계층구조, 레이블 명확성, 피드백 시스템, 일관성
 - 접근성 검증: WCAG 2.2 AA, 키보드 네비게이션, 스크린 리더, 인지적 접근성
 - Nielsen 사용성 휴리스틱 평가
+- 데이터 기반 UX 분석: UX 메트릭, 태스크 성공률, 이탈률 진단, 경쟁 벤치마크
 
 **산출물**: 페르소나 정의, 마찰 지점 맵, 우선순위별 개선안, 벤치마크 참조
 
-#### ux-researcher — UX 리서처
-
-**역할**: 데이터와 리서치 방법론에 기반한 UX 검증. UX 전문가의 분석에 **데이터 근거로 도전하고 보완**합니다.
-
-**핵심 질문**: "이 UX 판단을 뒷받침하는 데이터나 연구 근거가 있는가?"
-
-**분석 영역**:
-- 사용자 리서치 방법론: 정성/정량 리서치 설계, 행동 분석
-- 데이터 기반 UX 분석: UX 메트릭, 태스크 성공률, 이탈률 진단
-- 경쟁 벤치마크: 동일 카테고리 서비스 UX 패턴 비교, 업계 연구 참조
-
 ---
 
-### Tech 파트 (2인 토론)
+### Tech 파트
 
 #### tech-architect — 기술 아키텍트
 
-**역할**: 시스템 아키텍처 설계 분석. 토론의 **주도자**로서 설계 방향을 제시하고 최종 결론을 도출합니다.
+**역할**: 시스템 아키텍처 설계 분석 및 구현/운영 관점 검증.
 
 **핵심 질문**: "이 시스템이 6개월 후에도 확장과 유지보수가 가능한가?"
 
@@ -53,27 +43,17 @@ argument-hint: "<원하는 작업>"
 - 데이터 설계: 데이터 모델, 읽기/쓰기 패턴, 일관성 전략
 - 성능/확장성: 병목 예측, 캐싱 전략, 비동기 처리
 - 보안: 인증/인가, 데이터 암호화, API 보안
+- 구현 현실성: 설계 복잡도 대비 팀 역량/일정, 운영 관점 검증
 
 **산출물**: 기술 스택 제안 테이블, ADR, 구현 로드맵, Mermaid 시스템 다이어그램
 
-#### system-engineer — 시스템 엔지니어
-
-**역할**: 구현과 운영 관점에서 설계 검증. 아키텍트의 설계에 **현실성 검증으로 도전하고 보완**합니다.
-
-**핵심 질문**: "이 설계를 실제로 구현하고 운영할 때 어떤 문제가 발생하는가?"
-
-**분석 영역**:
-- 구현 현실성: 설계 복잡도 대비 팀 역량/일정, 기술 학습 곡선
-- 운영 관점: 배포 파이프라인, 모니터링, 인시던트 대응, 비용
-- 성능 엔지니어링: 실제 부하 패턴 기반 성능 예측, 최적화 방안
-
 ---
 
-### Risk 파트 (2인 토론)
+### Risk 파트
 
 #### devils-advocate — 비판적 검토자
 
-**역할**: 정성적 위험 탐색과 가정 도전. 토론의 **주도자**로서 위험을 드러내고 최종 결론을 도출합니다.
+**역할**: 정성적 위험 탐색, 가정 도전, 정량적 리스크 평가.
 
 **핵심 질문**: "우리가 틀렸을 가능성은 없는가?"
 
@@ -82,27 +62,17 @@ argument-hint: "<원하는 작업>"
 - 기술적 위험: 기술 한계, 확장성 병목, 기술 부채, 외부 의존성 장애
 - 사용자 관점 도전: 엣지 케이스, 악의적 사용자, 프라이버시 우려
 - 숨겨진 비용: 기회비용, 유지보수 비용, 규제 대응 비용, one-way door 식별
+- 정량적 리스크 평가: 발생 확률 × 영향도, 시나리오 모델링, 완화 전략 설계
 
 **산출물**: 가정 목록 테이블, 위험 분석, 핵심 질문 목록, Pre-mortem 분석
 
-#### risk-analyst — 리스크 분석가
-
-**역할**: 정량적 리스크 평가와 완화 전략 설계. 비판적 검토자의 분석에 **정량적 프레임워크로 도전하고 보완**합니다.
-
-**핵심 질문**: "이 위험의 발생 확률과 영향을 정량화할 수 있는가?"
-
-**분석 영역**:
-- 정량적 리스크 평가: 발생 확률 × 영향도, 리스크 노출값
-- 시나리오 모델링: Best/Base/Worst 케이스, 연쇄 장애 분석
-- 완화 전략 설계: 회피/전가/완화/수용, 비용-효과 분석
-
 ---
 
-### 종합 (1인)
+### 종합
 
 #### team-reviewer — 최종 검토자
 
-**역할**: 3개 파트의 토론 결과를 종합하여 충돌을 조율하고 실행 가능한 결론을 도출합니다.
+**역할**: 3개 파트의 분석 결과를 종합하여 충돌을 조율하고 실행 가능한 결론을 도출합니다.
 
 **핵심 질문**: "이 모든 의견을 종합했을 때, 지금 실행해야 할 최선의 다음 단계는 무엇인가?"
 
@@ -135,7 +105,7 @@ SUBJECT
 ### Step 2: Phase 1 시작 알림
 
 ```bash
-bash "$HOME/.claude/hooks/slack-team-progress.sh" "review-team" "start" "Phase 1 시작 — UX/Tech/Risk 3개 파트 병렬 토론" "<분석 대상 요약>"
+bash "$HOME/.claude/hooks/slack-team-progress.sh" "review-team" "start" "Phase 1 시작 — UX/Tech/Risk 3개 파트 병렬 분석" "<분석 대상 요약>" >/dev/null
 ```
 
 ### Step 3: 3개 파트 병렬 실행
@@ -143,9 +113,9 @@ bash "$HOME/.claude/hooks/slack-team-progress.sh" "review-team" "start" "Phase 1
 3개의 독립 세션을 **동시에** 실행합니다. 각 세션은 별도의 `claude -p` 프로세스로 동작합니다:
 
 ```bash
-bash "$HOME/.claude/hooks/run-review-part.sh" "review-team" "UX" "ux-expert" "ux-researcher" "$REVIEW_DIR/subject.md" "$REVIEW_DIR" &
-bash "$HOME/.claude/hooks/run-review-part.sh" "review-team" "Tech" "tech-architect" "system-engineer" "$REVIEW_DIR/subject.md" "$REVIEW_DIR" &
-bash "$HOME/.claude/hooks/run-review-part.sh" "review-team" "Risk" "devils-advocate" "risk-analyst" "$REVIEW_DIR/subject.md" "$REVIEW_DIR" &
+bash "$HOME/.claude/hooks/run-review-part.sh" "review-team" "UX" "ux-expert" "$REVIEW_DIR/subject.md" "$REVIEW_DIR" &
+bash "$HOME/.claude/hooks/run-review-part.sh" "review-team" "Tech" "tech-architect" "$REVIEW_DIR/subject.md" "$REVIEW_DIR" &
+bash "$HOME/.claude/hooks/run-review-part.sh" "review-team" "Risk" "devils-advocate" "$REVIEW_DIR/subject.md" "$REVIEW_DIR" &
 wait
 ```
 
@@ -160,7 +130,7 @@ ls -la "$REVIEW_DIR"/*.md
 
 Phase 1 완료 알림:
 ```bash
-bash "$HOME/.claude/hooks/slack-team-progress.sh" "review-team" "complete" "Phase 1 완료 — 3개 파트 토론 결과 수합"
+bash "$HOME/.claude/hooks/slack-team-progress.sh" "review-team" "complete" "Phase 1 완료 — 3개 파트 분석 결과 수합" >/dev/null
 ```
 
 ### Step 5: Phase 2 — 종합 판정 (독립 세션)
@@ -172,22 +142,6 @@ bash "$HOME/.claude/hooks/run-review-synthesis.sh" "review-team" "team-reviewer"
 ### Step 6: 최종 산출물 제출
 
 Read 도구로 `$REVIEW_DIR/synthesis.md`를 읽어 사용자에게 최종 산출물로 제출합니다.
-
----
-
-## 에이전트 간 토론 규칙
-
-각 파트 세션 내에서 3라운드 토론이 자동 수행됩니다:
-
-1. **Round 1 (주도자)**: 분석 대상에 대한 전문 영역 초기 분석을 제시합니다
-2. **Round 2 (도전자)**: Round 1 결과를 받아 다음을 수행합니다:
-   - 동의/보강: 상대 분석 중 강화할 부분과 근거
-   - 도전/보완: 추가 검증이 필요한 가정, 놓친 관점, 대안
-   - 구체적 제안: 분석을 개선할 수 있는 방법
-3. **Round 3 (주도자)**: Round 2 피드백을 반영하여 최종 종합 결론을 도출합니다:
-   - 수용한 피드백과 반영 내용
-   - 수용하지 않은 피드백과 그 이유
-   - 최종 분석 결론과 핵심 권고사항
 
 ## 최종 산출물
 

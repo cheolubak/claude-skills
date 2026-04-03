@@ -13,7 +13,7 @@ AGENT_NAME=$(echo "$CLAUDE_TOOL_INPUT" | jq -r '.to // .subagent_type // empty' 
 
 # 팀 에이전트 매핑 (팀에 속하지 않는 에이전트는 무시)
 case "$AGENT_NAME" in
-  ux-expert|ux-researcher|tech-architect|system-engineer|devils-advocate|risk-analyst|team-reviewer)
+  ux-expert|tech-architect|devils-advocate|team-reviewer)
     TEAM="review-team"
     ;;
   frontend-tech-lead|frontend-interviewer|project-analyst|resume-critic|hiring-manager|culture-analyst|resume-reviewer)
@@ -73,6 +73,6 @@ else
   PHASE="✅ 분석 완료"
 fi
 
-# Slack 전송 (기존 slack-team-notify.sh 활용)
+# Slack 전송 (SLACK_THREAD_TS가 설정되면 스레드로 전송)
 HOOK_DIR="$(cd "$(dirname "$0")" && pwd)"
-echo "$RESPONSE" | bash "$HOOK_DIR/slack-team-notify.sh" "$AGENT_NAME" "$PHASE" "$SUBJECT" "$TEAM"
+echo "$RESPONSE" | bash "$HOOK_DIR/slack-team-notify.sh" "$AGENT_NAME" "$PHASE" "$SUBJECT" "$TEAM" "${SLACK_THREAD_TS:-}" >/dev/null

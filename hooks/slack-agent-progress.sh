@@ -13,7 +13,7 @@ AGENT_NAME=$(echo "$CLAUDE_TOOL_INPUT" | jq -r '.to // .subagent_type // empty' 
 
 # 팀 매핑 (팀에 속하지 않는 에이전트는 무시)
 case "$AGENT_NAME" in
-  ux-expert|ux-researcher|tech-architect|system-engineer|devils-advocate|risk-analyst|team-reviewer)
+  ux-expert|tech-architect|devils-advocate|team-reviewer)
     TEAM="review-team"
     ;;
   frontend-tech-lead|frontend-interviewer|project-analyst|resume-critic|hiring-manager|culture-analyst|resume-reviewer)
@@ -27,11 +27,8 @@ esac
 # 에이전트 역할 매핑
 case "$AGENT_NAME" in
   ux-expert)              ROLE="UX 전문가" ;;
-  ux-researcher)          ROLE="UX 리서처" ;;
   tech-architect)         ROLE="기술 아키텍트" ;;
-  system-engineer)        ROLE="시스템 엔지니어" ;;
   devils-advocate)        ROLE="비판적 검토자" ;;
-  risk-analyst)           ROLE="리스크 분석가" ;;
   team-reviewer)          ROLE="최종 검토자" ;;
   frontend-tech-lead)     ROLE="프론트엔드 테크 리드" ;;
   frontend-interviewer)   ROLE="프론트엔드 면접관" ;;
@@ -76,6 +73,6 @@ else
   MSG="${ROLE}에게 분석 요청 중..."
 fi
 
-# 진행 중 알림 전송
+# 진행 중 알림 전송 (SLACK_THREAD_TS가 설정되면 스레드로 전송)
 HOOK_DIR="$(cd "$(dirname "$0")" && pwd)"
-bash "$HOOK_DIR/slack-team-progress.sh" "$TEAM" "progress" "$MSG"
+bash "$HOOK_DIR/slack-team-progress.sh" "$TEAM" "progress" "$MSG" "" "${SLACK_THREAD_TS:-}" >/dev/null
