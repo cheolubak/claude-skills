@@ -13,7 +13,7 @@ AGENT_NAME=$(echo "$CLAUDE_TOOL_INPUT" | jq -r '.to // .subagent_type // empty' 
 
 # 팀 에이전트 매핑 (팀에 속하지 않는 에이전트는 무시)
 case "$AGENT_NAME" in
-  ux-expert|tech-architect|devils-advocate|team-reviewer)
+  ux-expert|ux-researcher|tech-architect|system-engineer|devils-advocate|risk-analyst|team-reviewer)
     TEAM="review-team"
     ;;
   frontend-tech-lead|frontend-interviewer|project-analyst|resume-critic|hiring-manager|culture-analyst|resume-reviewer)
