@@ -75,8 +75,8 @@ ${OUTPUT_DIR}/synthesis.md
 - 에이전트 응답을 요약하지 말고 전문을 저장할 것
 ENDPROMPT
 
-# claude -p 세션 실행
-claude -p "$PROMPT" --output-format text 2>/dev/null || true
+# claude -p 세션 실행 (cmux 래퍼 우회하여 settings.json 훅 직접 로드)
+CMUX_CLAUDE_HOOKS_DISABLED=1 claude -p "$PROMPT" --output-format text 2>/dev/null || true
 
 # 스레드 해제 (완료 메시지는 독립 메시지로 전송)
 unset SLACK_THREAD_TS
