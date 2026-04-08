@@ -6,14 +6,16 @@
   },
   "includeCoAuthoredBy": true,
   "permissions": {
-    "allow": [],
+    "allow": [
+      "Bash(qmd *)"
+    ],
     "deny": [
       "Bash(rm -rf *)",
       "Bash(git reset --hard*)",
       "Bash(DROP *)",
       "Bash(DELETE FROM *)"
     ],
-    "defaultMode": "bypassPermissions"
+    "defaultMode": "plan"
   },
   "hooks": {
     "SessionStart": [
