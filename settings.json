@@ -17,6 +17,7 @@
     ],
     "defaultMode": "plan"
   },
+  "model": "sonnet",
   "hooks": {
     "SessionStart": [
       {
@@ -117,7 +118,12 @@
     "type": "command",
     "command": "bash $HOME/.claude/statusline.sh"
   },
+  "alwaysThinkingEnabled": true,
+  "fastMode": false,
   "effortLevel": "high",
+  "language": "korean",
+  "advisorModel": "opus",
   "skipDangerousModePermissionPrompt": true,
+  "DISABLE_AUTOUPDATER": "1",
   "teammateMode": "in-process"
 }
