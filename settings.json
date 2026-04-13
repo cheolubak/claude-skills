@@ -106,6 +106,11 @@
           },
           {
             "type": "command",
+            "command": "bash \"$HOME/.claude/hooks/stop-hook-work-save.sh\"",
+            "timeout": 15
+          },
+          {
+            "type": "command",
             "command": "\"$HOME\"/.claude/hooks/commit-session.sh",
             "timeout": 120,
             "async": true
