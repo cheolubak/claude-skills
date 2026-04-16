@@ -1,12 +1,13 @@
 ---
 name: nextjs-a11y
-description: Next.js 웹 접근성(a11y) 가이드. WCAG 2.2 기준, 시맨틱 HTML, ARIA, 키보드 네비게이션, 스크린 리더, 색상 대비, 폼 접근성 패턴.
+description: "Next.js 웹 접근성(a11y) 가이드. WCAG 2.2 기준, 시맨틱 HTML, ARIA, 키보드 네비게이션, 스크린 리더, 색상 대비, 폼 접근성 패턴.\nTRIGGER when: \"접근성\", \"a11y\", \"ARIA\", \"키보드 네비게이션\", \"스크린 리더\", \"색상 대비\", \"시맨틱 HTML\", \"웹 접근성\", \"장애인 접근\", WCAG 관련 질문 시.\nSKIP: 일반 UI 컴포넌트 구조는 nextjs-shadcn 또는 react-best-practices."
 ---
 
 > 참조:
 > - [references/patterns.md](references/patterns.md) - 컴포넌트별 접근성 패턴 (모달, 폼, 네비게이션, 토스트 등)
 > - [references/checklist.md](references/checklist.md) - WCAG 2.2 체크리스트, 테스트 도구, 자동화
-> - [references/aria-reference.md](references/aria-reference.md) - ARIA 역할/속성/상태 레퍼런스
+> - [references/aria-roles.md](references/aria-roles.md) - ARIA 사용 규칙, 랜드마크/위젯/문서구조 역할
+> - [references/aria-states-properties.md](references/aria-states-properties.md) - ARIA 상태 및 속성 레퍼런스
 
 # Next.js 웹 접근성 (a11y) 가이드
 
