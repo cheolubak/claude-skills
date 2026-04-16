@@ -1,11 +1,18 @@
 ---
 name: react-best-practices
-description: React + Next.js 모범 사례. 서버/클라이언트 컴포넌트, 상태 관리, 성능 최적화 패턴.
+description: "React + Next.js 모범 사례. 서버/클라이언트 컴포넌트, 상태 관리, 성능 최적화 패턴.\nTRIGGER when: \"컴포넌트 만들어줘\", \"리액트 구조\", \"페이지 만들어줘\", \"컴포넌트 설계\", \"렌더링 최적화\", \"서버 컴포넌트\", \"클라이언트 컴포넌트\", \"use client 써야 해?\", \"React 패턴\", \"컴포넌트 분리\", React/Next.js 프로젝트에서 컴포넌트 작성 시.\nSKIP: 특정 라이브러리(Zustand, TanStack Query, Hook Form 등) 사용법은 해당 전용 스킬. 스타일링은 tailwind-patterns."
 ---
 
 > 참조:
-> - [AGENTS.md](AGENTS.md) - 45개 규칙 전체 컴파일 문서 (Vercel Engineering)
-> - [rules/](rules/) - 개별 규칙 파일 (async-, bundle-, server-, rerender-, rendering-, js-, advanced-)
+> - [references/01-waterfall.md](references/01-waterfall.md) - 워터폴 제거 (CRITICAL)
+> - [references/02-bundle.md](references/02-bundle.md) - 번들 크기 최적화 (CRITICAL)
+> - [references/03-server.md](references/03-server.md) - 서버 사이드 성능 (HIGH)
+> - [references/04-client.md](references/04-client.md) - 클라이언트 사이드 데이터 페칭 (MEDIUM-HIGH)
+> - [references/05-rerender.md](references/05-rerender.md) - 리렌더 최적화 (MEDIUM)
+> - [references/06-rendering.md](references/06-rendering.md) - 렌더링 성능 (MEDIUM)
+> - [references/07-javascript.md](references/07-javascript.md) - JavaScript 성능 (LOW-MEDIUM)
+> - [references/08-advanced.md](references/08-advanced.md) - 고급 패턴 (LOW)
+> - [rules/](rules/) - 개별 규칙 파일
 > - [README.md](README.md) - 규칙 카테고리, 우선순위, 사용법
 
 # React 모범 사례 (Next.js App Router)

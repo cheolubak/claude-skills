@@ -10,7 +10,7 @@
   - `area-description.md` - 개별 규칙 파일
 - `src/` - 빌드 스크립트 및 유틸리티
 - `metadata.json` - 문서 메타데이터 (버전, 조직, 개요)
-- __`AGENTS.md`__ - 컴파일된 출력 (자동 생성됨)
+- `references/` - 섹션별 분할 레퍼런스 (기존 AGENTS.md에서 분리)
 - __`test-cases.json`__ - LLM 평가를 위한 테스트 케이스 (자동 생성됨)
 
 ## 시작하기
