@@ -123,11 +123,11 @@
     "type": "command",
     "command": "bash $HOME/.claude/statusline.sh"
   },
-  "alwaysThinkingEnabled": true,
-  "fastMode": false,
-  "effortLevel": "high",
   "language": "korean",
+  "alwaysThinkingEnabled": true,
+  "effortLevel": "high",
   "advisorModel": "opus",
+  "fastMode": false,
   "skipDangerousModePermissionPrompt": true,
   "DISABLE_AUTOUPDATER": "1",
   "teammateMode": "in-process"
