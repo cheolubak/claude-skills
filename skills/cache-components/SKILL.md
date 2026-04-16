@@ -1,12 +1,14 @@
 ---
 name: cache-components
-description: Next.js Cache Components (use cache) 패턴 가이드. cacheTag, cacheLife, updateTag 사용법.
+description: "Next.js Cache Components (use cache) 패턴 가이드. cacheTag, cacheLife, updateTag 사용법.\nTRIGGER when: \"캐싱 어떻게\", \"use cache\", \"캐시 전략\", \"cacheTag\", \"cacheLife\", \"데이터 캐싱\", \"revalidate\", Next.js 앱에서 캐시/캐싱 관련 질문이나 구현 시.\nSKIP: TanStack Query 클라이언트 캐싱은 tanstack-query. HTTP 캐시 헤더/CDN 설정은 nextjs-deployment."
 ---
 
 > 참조:
-> - [REFERENCE.md](REFERENCE.md) - 전체 API 레퍼런스 (지시어, cacheLife, cacheTag, updateTag, revalidateTag)
-> - [PATTERNS.md](PATTERNS.md) - 12개 캐시 패턴 & 레시피 (이커머스, SaaS, 서브셸 등)
-> - [TROUBLESHOOTING.md](TROUBLESHOOTING.md) - 디버깅 체크리스트, 에러 해결, 성능 최적화
+> - [references/cache-directives.md](references/cache-directives.md) - 'use cache' 지시어 및 캐시 핸들러
+> - [references/cache-functions.md](references/cache-functions.md) - cacheLife, cacheTag, updateTag, revalidateTag, connection 함수
+> - [references/cache-configuration.md](references/cache-configuration.md) - 설정, 마이그레이션, 런타임 동작, 타입 정의
+> - [references/PATTERNS.md](references/PATTERNS.md) - 12개 캐시 패턴 & 레시피 (이커머스, SaaS, 서브셸 등)
+> - [references/TROUBLESHOOTING.md](references/TROUBLESHOOTING.md) - 디버깅 체크리스트, 에러 해결, 성능 최적화
 
 # Next.js Cache Components 가이드
 
