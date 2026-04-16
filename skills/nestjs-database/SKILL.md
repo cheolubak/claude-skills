@@ -1,6 +1,6 @@
 ---
 name: nestjs-database
-description: NestJS 데이터베이스 패턴. "TypeORM", "Prisma", "데이터베이스 설정", "마이그레이션", "엔티티 생성" 등의 요청 시 사용.
+description: "NestJS 데이터베이스 패턴.\nTRIGGER when: \"TypeORM\", \"Prisma\", \"데이터베이스 설정\", \"마이그레이션\", \"엔티티 생성\", \"DB 연결\", \"테이블 만들어줘\", \"스키마 생성\", \"리포지토리 패턴\", NestJS 프로젝트에서 DB 설정/엔티티/마이그레이션 작업 시.\nSKIP: 벡터 검색/임베딩은 nestjs-semantic-search. CRUD 전체 모듈 생성은 nestjs-crud."
 version: 1.0.0
 ---
 

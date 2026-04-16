@@ -1,6 +1,6 @@
 ---
 name: nestjs-validation
-description: NestJS DTO 유효성 검증. "DTO 생성", "validation", "유효성 검증", "class-validator" 등의 요청 시 사용.
+description: "NestJS DTO 유효성 검증.\nTRIGGER when: \"DTO 생성\", \"validation\", \"유효성 검증\", \"class-validator\", \"입력 검증\", \"요청 검증\", \"파이프 설정\", \"ValidationPipe\", NestJS에서 요청 데이터 검증 시.\nSKIP: 프론트엔드 폼 검증은 react-hook-form. Zod 스키마만 사용하면 typescript-patterns."
 version: 1.0.0
 ---
 

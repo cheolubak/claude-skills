@@ -1,6 +1,6 @@
 ---
 name: nextjs-auth
-description: Next.js 인증/인가 패턴. Auth.js v5, 미들웨어 보호, 세션 관리, OAuth/Credentials 프로바이더, RBAC 패턴.
+description: "Next.js 인증/인가 패턴. Auth.js v5, 미들웨어 보호, 세션 관리, OAuth/Credentials 프로바이더, RBAC 패턴.\nTRIGGER when: \"로그인 만들어줘\", \"회원가입\", \"인증 구현\", \"소셜 로그인\", \"구글 로그인\", \"세션 관리\", \"로그인 페이지\", \"권한 체크\", \"미들웨어 보호\", Next.js 프로젝트에서 인증/인가 구현 시.\nSKIP: NestJS 백엔드 인증은 nestjs-auth. 폼 UI는 react-hook-form."
 ---
 
 # Next.js 인증 가이드 (Auth.js v5)

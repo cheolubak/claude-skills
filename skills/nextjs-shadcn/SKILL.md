@@ -1,6 +1,6 @@
 ---
 name: nextjs-shadcn
-description: shadcn/ui + Next.js 컴포넌트 패턴 가이드
+description: "shadcn/ui + Next.js 컴포넌트 패턴 가이드.\nTRIGGER when: \"UI 컴포넌트\", \"shadcn\", \"버튼 만들어줘\", \"모달 만들어줘\", \"다이얼로그\", \"드롭다운\", \"테이블 만들어줘\", \"카드 컴포넌트\", \"컴포넌트 추가\", shadcn/ui 또는 Radix 기반 컴포넌트 사용 시.\nSKIP: 커스텀 스타일링/테마는 tailwind-patterns. 폼 로직은 react-hook-form. 애니메이션은 framer-motion."
 ---
 
 > 참조:

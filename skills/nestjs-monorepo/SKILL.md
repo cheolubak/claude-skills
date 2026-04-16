@@ -1,6 +1,6 @@
 ---
 name: nestjs-monorepo
-description: NestJS 모노레포 가이드. Turborepo + pnpm workspace 설정, 공유 라이브러리, 마이크로서비스, 빌드 파이프라인, 배포. "모노레포", "monorepo", "Turborepo", "workspace", "공유 라이브러리", "마이크로서비스" 등의 요청 시 사용.
+description: "NestJS 모노레포 가이드. Turborepo + pnpm workspace 설정, 공유 라이브러리, 마이크로서비스, 빌드 파이프라인, 배포.\nTRIGGER when: \"모노레포\", \"monorepo\", \"Turborepo\", \"workspace\", \"공유 라이브러리\", \"마이크로서비스\", \"백엔드 프로젝트 분리\", NestJS 모노레포 설정/관리 시.\nSKIP: Next.js 프론트엔드 모노레포는 nextjs-monorepo."
 version: 1.0.0
 ---
 

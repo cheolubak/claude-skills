@@ -1,6 +1,6 @@
 ---
 name: nextjs-monorepo
-description: Next.js 모노레포 가이드. Turborepo + pnpm workspace 설정, 공유 패키지, 내부 패키지, 빌드 파이프라인, 환경변수, 배포. "모노레포", "monorepo", "Turborepo", "workspace", "공유 패키지" 등의 요청 시 사용.
+description: "Next.js 모노레포 가이드. Turborepo + pnpm workspace 설정, 공유 패키지, 내부 패키지, 빌드 파이프라인, 환경변수, 배포.\nTRIGGER when: \"모노레포\", \"monorepo\", \"Turborepo\", \"workspace\", \"공유 패키지\", \"패키지 분리\", \"프로젝트 구조 나누기\", Next.js 모노레포 설정/관리 시.\nSKIP: NestJS 모노레포는 nestjs-monorepo. 단일 프로젝트 구조는 react-best-practices."
 version: 1.0.0
 ---
 

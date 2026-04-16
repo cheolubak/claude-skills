@@ -1,6 +1,6 @@
 ---
 name: server-actions
-description: Next.js Server Actions 패턴. 변이 전용, Zod 유효성 검사, 에러 처리, updateTag/refresh 사용법.
+description: "Next.js Server Actions 패턴. 변이 전용, Zod 유효성 검사, 에러 처리, updateTag/refresh 사용법.\nTRIGGER when: \"서버 액션\", \"server action\", \"use server\", \"폼 제출 처리\", \"데이터 수정\", \"mutation 처리\", \"서버에서 처리\", Next.js에서 데이터 변이/폼 서버 처리 구현 시.\nSKIP: 폼 UI/클라이언트 검증은 react-hook-form. NestJS API 엔드포인트는 nestjs-crud."
 ---
 
 > 참조:

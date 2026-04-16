@@ -1,6 +1,6 @@
 ---
 name: nestjs-auth
-description: NestJS 인증/인가 설정. "인증 설정", "JWT", "Guard 생성", "로그인 구현" 등의 요청 시 사용.
+description: "NestJS 인증/인가 설정.\nTRIGGER when: \"인증 설정\", \"JWT\", \"Guard 생성\", \"로그인 구현\", \"토큰 발급\", \"로그인 API\", \"회원가입 API\", \"패스포트\", \"Passport\", NestJS 백엔드에서 인증/인가 구현 시.\nSKIP: Next.js 프론트엔드 인증은 nextjs-auth. 폼 UI는 react-hook-form."
 version: 1.0.0
 ---
 

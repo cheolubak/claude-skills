@@ -1,7 +1,7 @@
 ---
 name: nextjs-seo
 argument-hint: "[질문 또는 URL]"
-description: Next.js SEO 최적화 가이드. Metadata API, 사이트맵, robots.txt, JSON-LD, Open Graph, 캐노니컬 URL, Core Web Vitals 최적화.
+description: "Next.js SEO 최적화 가이드. Metadata API, 사이트맵, robots.txt, JSON-LD, Open Graph, 캐노니컬 URL, Core Web Vitals 최적화.\nTRIGGER when: \"SEO 설정\", \"검색 노출\", \"메타태그\", \"사이트맵\", \"오픈그래프\", \"og 태그\", \"robots.txt\", \"검색엔진 최적화\", \"공유 미리보기\", generateMetadata 사용 시.\nSKIP: 성능 최적화(번들 크기, 렌더링)는 react-best-practices. 배포/CDN 설정은 nextjs-deployment."
 ---
 
 > 참조:

@@ -1,6 +1,6 @@
 ---
 name: verify-implementation
-description: 프로젝트의 모든 verify 스킬을 순차 실행하여 통합 검증 보고서를 생성합니다. 기능 구현 후, PR 전, 코드 리뷰 시 사용.
+description: "프로젝트의 모든 verify 스킬을 순차 실행하여 통합 검증 보고서 생성.\nTRIGGER when: \"검증해줘\", \"구현 확인\", \"PR 전 점검\", \"코드 검증\", 기능 구현 완료 후 통합 검증 시.\nSKIP: 특정 테스트만 실행하면 nextjs-testing 또는 nestjs-testing."
 disable-model-invocation: true
 argument-hint: "[선택사항: 특정 verify 스킬 이름]"
 ---

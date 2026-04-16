@@ -1,6 +1,6 @@
 ---
 name: review-team
-description: 7인 토론 기반 리뷰 팀(UX, 기술, 리스크 파트별 2인 토론 + 종합 판정)으로 서비스/기능을 다각도 분석합니다.
+description: "7인 토론 기반 리뷰 팀(UX, 기술, 리스크 파트별 2인 토론 + 종합 판정)으로 서비스/기능을 다각도 분석.\nTRIGGER when: \"리뷰해줘\", \"기능 검토\", \"서비스 분석\", \"아키텍처 리뷰\", \"다각도 분석\", 서비스/기능의 종합 리뷰가 필요할 때.\nSKIP: 이력서 검증은 frontend-resume-review. 단순 PR 코드 리뷰는 /review."
 argument-hint: "<원하는 작업>"
 ---
 

@@ -1,6 +1,6 @@
 ---
 name: diff-commit
-description: 현재 변경사항을 분석하여 논리적 작업 단위별로 분리된 커밋을 자동 생성합니다. 여러 작업이 섞인 변경사항을 정리할 때 사용.
+description: "현재 변경사항을 분석하여 논리적 작업 단위별로 분리된 커밋을 자동 생성합니다.\nTRIGGER when: \"커밋 정리해줘\", \"변경사항 커밋\", \"커밋 분리\", \"작업별로 커밋\", \"커밋 나눠줘\", 여러 작업이 섞인 변경사항을 논리적으로 정리해서 커밋할 때.\nSKIP: 단순 단일 커밋은 /commit. PR 생성은 request-pr. worktree 머지는 merge-worktree."
 argument-hint: "[선택사항: 커밋 범위를 제한할 경로 패턴]"
 disable-model-invocation: true
 ---

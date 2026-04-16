@@ -1,6 +1,6 @@
 ---
 name: nestjs-swagger
-description: NestJS Swagger/OpenAPI 문서화. "Swagger 설정", "API 문서화", "OpenAPI", "API docs" 등의 요청 시 사용.
+description: "NestJS Swagger/OpenAPI 문서화.\nTRIGGER when: \"Swagger 설정\", \"API 문서화\", \"OpenAPI\", \"API docs\", \"API 문서 만들어줘\", \"스웨거\", \"API 명세\", NestJS에서 API 문서화/Swagger 설정 시.\nSKIP: 프론트엔드 Storybook 문서화는 별도."
 version: 1.0.0
 ---
 

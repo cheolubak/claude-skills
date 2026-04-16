@@ -1,6 +1,6 @@
 ---
 name: zustand-patterns
-description: Zustand 상태 관리 패턴. 스토어 설계, 슬라이스 패턴, persist/immer 미들웨어, SSR 하이드레이션, 셀렉터 최적화.
+description: "Zustand 상태 관리 패턴. 스토어 설계, 슬라이스 패턴, persist/immer 미들웨어, SSR 하이드레이션, 셀렉터 최적화.\nTRIGGER when: \"상태 관리\", \"전역 상태\", \"스토어 만들어줘\", \"zustand\", \"store 설계\", \"상태 공유\", \"전역 데이터\", React/Next.js에서 클라이언트 상태 관리 구현 시.\nSKIP: 서버 데이터 캐싱/페칭은 tanstack-query. 폼 상태는 react-hook-form. 서버 컴포넌트 상태는 react-best-practices."
 ---
 
 # Zustand 상태 관리 가이드

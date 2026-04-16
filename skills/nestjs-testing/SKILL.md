@@ -1,6 +1,6 @@
 ---
 name: nestjs-testing
-description: NestJS 테스트 작성. "테스트 작성", "유닛 테스트", "e2e 테스트", "테스트 코드" 등의 요청 시 사용.
+description: "NestJS 테스트 작성.\nTRIGGER when: \"테스트 작성\", \"유닛 테스트\", \"e2e 테스트\", \"테스트 코드\", \"서비스 테스트\", \"컨트롤러 테스트\", \"테스트 돌려줘\", NestJS 백엔드 프로젝트에서 테스트 작성 시.\nSKIP: Next.js/React 프론트엔드 테스트는 nextjs-testing."
 version: 1.0.0
 ---
 

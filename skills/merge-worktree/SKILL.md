@@ -1,6 +1,6 @@
 ---
 name: merge-worktree
-description: Merge the current worktree branch into the main branch (or a specified target). Analyzes commits to decide squash or rebase strategy, then crafts comprehensive commit messages.
+description: "worktree 브랜치를 main(또는 지정 브랜치)에 머지. 커밋 분석으로 squash/rebase 전략 자동 결정.\nTRIGGER when: \"머지해줘\", \"worktree 머지\", \"브랜치 합쳐줘\", \"main에 머지\", worktree 작업 완료 후 머지 시.\nSKIP: PR 생성은 request-pr. 커밋 정리만이면 diff-commit."
 argument-hint: "[target-branch]"
 disable-model-invocation: true
 ---

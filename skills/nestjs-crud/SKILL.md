@@ -1,6 +1,6 @@
 ---
 name: nestjs-crud
-description: NestJS CRUD 모듈 스캐폴딩. "CRUD 생성", "모듈 생성", "리소스 생성", "scaffold" 등의 요청 시 사용.
+description: "NestJS CRUD 모듈 스캐폴딩.\nTRIGGER when: \"API 만들어줘\", \"CRUD 생성\", \"모듈 생성\", \"리소스 생성\", \"scaffold\", \"컨트롤러 만들어줘\", \"서비스 만들어줘\", \"엔드포인트 추가\", NestJS 프로젝트에서 새 리소스/모듈 생성 시.\nSKIP: Next.js Server Actions는 server-actions. DB 엔티티/마이그레이션만이면 nestjs-database."
 version: 1.0.0
 ---
 

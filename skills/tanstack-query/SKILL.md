@@ -1,6 +1,6 @@
 ---
 name: tanstack-query
-description: TanStack Query v5 데이터 페칭 패턴. useQuery, useMutation, 프리페칭, 옵티미스틱 업데이트, 무한 스크롤, Next.js App Router 통합.
+description: "TanStack Query v5 데이터 페칭 패턴. useQuery, useMutation, 프리페칭, 옵티미스틱 업데이트, 무한 스크롤, Next.js App Router 통합.\nTRIGGER when: \"데이터 가져와\", \"API 호출\", \"서버 데이터\", \"useQuery\", \"react-query\", \"데이터 페칭\", \"무한 스크롤\", \"로딩 처리\", \"낙관적 업데이트\", 클라이언트에서 서버 데이터 페칭/캐싱 시.\nSKIP: 서버 컴포넌트 데이터 페칭은 cache-components. 폼 제출은 react-hook-form + server-actions."
 ---
 
 # TanStack Query v5 가이드

@@ -1,6 +1,6 @@
 ---
 name: tailwind-patterns
-description: Tailwind CSS + CSS 변수 패턴. 테마 시스템, 반응형 디자인, 다크모드, 애니메이션 가이드.
+description: "Tailwind CSS + CSS 변수 패턴. 테마 시스템, 반응형 디자인, 다크모드, 애니메이션 가이드.\nTRIGGER when: \"스타일 입혀줘\", \"디자인 적용\", \"다크모드\", \"반응형\", \"테마 설정\", \"tailwind\", \"CSS 변수\", \"색상 시스템\", \"모바일 대응\", 스타일링/테마/반응형 디자인 작업 시.\nSKIP: 컴포넌트 구조는 nextjs-shadcn. JS 기반 복잡한 애니메이션은 framer-motion."
 ---
 
 > 참조:

@@ -1,6 +1,6 @@
 ---
 name: nestjs-config
-description: NestJS 환경설정 관리. "환경설정", "config 설정", "환경변수", ".env 설정" 등의 요청 시 사용.
+description: "NestJS 환경설정 관리.\nTRIGGER when: \"환경설정\", \"config 설정\", \"환경변수\", \".env 설정\", \"설정 파일\", \"ConfigModule\", \"환경별 설정\", \"시크릿 관리\", NestJS 프로젝트 환경변수/설정 구성 시.\nSKIP: Next.js 환경변수는 nextjs-deployment. DB 연결 설정은 nestjs-database."
 version: 1.0.0
 ---
 

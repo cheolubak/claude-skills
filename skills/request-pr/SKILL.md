@@ -1,6 +1,6 @@
 ---
 name: request-pr
-description: 지정한 브랜치로 GitHub PR을 생성합니다. 커밋 히스토리를 분석하여 한글로 PR 제목과 본문을 자동 작성합니다.
+description: "지정 브랜치로 GitHub PR 생성. 커밋 히스토리 분석으로 한글 PR 제목/본문 자동 작성.\nTRIGGER when: \"PR 만들어줘\", \"풀 리퀘스트\", \"PR 올려줘\", \"코드 리뷰 요청\", GitHub PR 생성 시.\nSKIP: 코드 리뷰 자체는 review-team. worktree 머지는 merge-worktree."
 argument-hint: "<대상 브랜치 (예: main, develop)>"
 disable-model-invocation: true
 ---

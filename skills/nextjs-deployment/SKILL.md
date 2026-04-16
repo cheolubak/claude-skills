@@ -1,6 +1,6 @@
 ---
 name: nextjs-deployment
-description: Next.js 배포 패턴. Docker standalone 빌드, Vercel 설정, GitHub Actions CI/CD, 환경변수 관리, 모니터링, 헬스체크.
+description: "Next.js 배포 패턴. Docker standalone 빌드, Vercel 설정, GitHub Actions CI/CD, 환경변수 관리, 모니터링, 헬스체크.\nTRIGGER when: \"배포해줘\", \"Docker 설정\", \"Vercel 배포\", \"CI/CD\", \"GitHub Actions\", \"빌드 설정\", \"환경변수 관리\", \"프로덕션 배포\", \"Dockerfile\", Next.js 프로젝트 배포/인프라 설정 시.\nSKIP: NestJS 백엔드 배포는 별도. 모노레포 빌드 파이프라인은 nextjs-monorepo."
 ---
 
 # Next.js 배포 가이드

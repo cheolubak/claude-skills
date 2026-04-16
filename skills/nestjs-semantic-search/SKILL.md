@@ -1,6 +1,6 @@
 ---
 name: nestjs-semantic-search
-description: NestJS PostgreSQL 시맨틱 검색. "시맨틱 검색", "벡터 검색", "pgvector", "임베딩", "RAG", "유사도 검색", "semantic search", "vector search" 등의 요청 시 사용.
+description: "NestJS PostgreSQL 시맨틱 검색.\nTRIGGER when: \"시맨틱 검색\", \"벡터 검색\", \"pgvector\", \"임베딩\", \"RAG\", \"유사도 검색\", \"semantic search\", \"vector search\", \"AI 검색\", \"자연어 검색\", NestJS에서 벡터/시맨틱 검색 구현 시.\nSKIP: 일반 SQL 쿼리/풀텍스트 검색은 nestjs-database."
 ---
 
 # NestJS PostgreSQL Semantic Search (pgvector)

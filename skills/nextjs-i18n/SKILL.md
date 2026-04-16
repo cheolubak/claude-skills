@@ -1,7 +1,7 @@
 ---
 name: nextjs-i18n
 argument-hint: "[번역 키 추가 / 새 언어 추가 / i18n 설정]"
-description: Next.js i18n 다국어 지원 가이드. i18next + react-i18next 설정, 번역 리소스 관리, useTranslateText 훅, I18nProvider, 언어 감지, 번역 키 추가 패턴.
+description: "Next.js i18n 다국어 지원 가이드. i18next + react-i18next 설정, 번역 리소스 관리, useTranslateText 훅, I18nProvider, 언어 감지, 번역 키 추가 패턴.\nTRIGGER when: \"다국어\", \"번역\", \"i18n\", \"영어 지원\", \"언어 전환\", \"국제화\", \"locale\", \"다국어 지원해줘\", 다국어/번역 기능 구현 시.\nSKIP: SEO용 hreflang 태그만 필요하면 nextjs-seo."
 ---
 
 > 참조:

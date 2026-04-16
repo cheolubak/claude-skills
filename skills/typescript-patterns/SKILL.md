@@ -1,6 +1,6 @@
 ---
 name: typescript-patterns
-description: React/Next.js TypeScript 고급 패턴. 제네릭 컴포넌트, discriminated union, Zod 타입 추론, satisfies, 유틸리티 타입, 타입 안전 API.
+description: "React/Next.js TypeScript 고급 패턴. 제네릭 컴포넌트, discriminated union, Zod 타입 추론, satisfies, 유틸리티 타입, 타입 안전 API.\nTRIGGER when: \"타입 에러\", \"타입 안전하게\", \"제네릭\", \"타입 추론\", \"Zod 스키마\", \"타입 정의\", \"유틸리티 타입\", \"as 쓰지 말고\", \"타입 좁히기\", TypeScript 타입 설계/에러 해결 시.\nSKIP: NestJS DTO 검증은 nestjs-validation. 런타임 폼 검증은 react-hook-form."
 ---
 
 # TypeScript 고급 패턴 (React/Next.js)

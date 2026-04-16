@@ -1,6 +1,6 @@
 ---
 name: nestjs-error-handling
-description: NestJS 예외 처리. "에러 처리", "exception filter", "커스텀 예외", "error handling" 등의 요청 시 사용.
+description: "NestJS 예외 처리.\nTRIGGER when: \"에러 처리\", \"exception filter\", \"커스텀 예외\", \"error handling\", \"에러 응답\", \"예외 필터\", \"에러 잡아줘\", \"에러 핸들링\", NestJS에서 에러/예외 처리 구현 시.\nSKIP: DTO 유효성 검증 에러는 nestjs-validation. 프론트엔드 에러 바운더리는 react-best-practices."
 version: 1.0.0
 ---
 

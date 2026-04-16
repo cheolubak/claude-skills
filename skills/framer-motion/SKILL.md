@@ -1,6 +1,6 @@
 ---
 name: framer-motion
-description: Motion (Framer Motion) v11+ 애니메이션 패턴. 레이아웃 애니메이션, 페이지 전환, 스크롤 애니메이션, 제스처, AnimatePresence, View Transitions API.
+description: "Motion (Framer Motion) v11+ 애니메이션 패턴. 레이아웃 애니메이션, 페이지 전환, 스크롤 애니메이션, 제스처, AnimatePresence, View Transitions API.\nTRIGGER when: \"애니메이션 넣어줘\", \"트랜지션\", \"페이지 전환 효과\", \"스크롤 애니메이션\", \"모션\", \"framer-motion\", \"움직이게\", \"fade in\", \"슬라이드\", React/Next.js에서 애니메이션/모션 효과 구현 시.\nSKIP: CSS만으로 충분한 단순 hover/transition은 tailwind-patterns."
 ---
 
 # Motion (Framer Motion) 애니메이션 가이드

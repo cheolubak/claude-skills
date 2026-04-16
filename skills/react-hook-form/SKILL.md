@@ -1,6 +1,6 @@
 ---
 name: react-hook-form
-description: React Hook Form + Zod 심화 폼 패턴. 멀티스텝 폼, 동적 필드, 파일 업로드, Server Action 연동, 조건부 검증.
+description: "React Hook Form + Zod 심화 폼 패턴. 멀티스텝 폼, 동적 필드, 파일 업로드, Server Action 연동, 조건부 검증.\nTRIGGER when: \"폼 만들어줘\", \"입력 검증\", \"회원가입 폼\", \"useForm\", \"form validation\", \"폼 제출\", \"입력 폼\", \"파일 업로드 폼\", \"멀티스텝\", React/Next.js에서 폼 구현 시.\nSKIP: NestJS DTO 서버 검증은 nestjs-validation. 서버 제출 로직만이면 server-actions."
 ---
 
 # React Hook Form + Zod 심화 가이드
