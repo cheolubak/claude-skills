@@ -28,6 +28,10 @@ $ ln -s $(pwd)/notify.sh $HOME/.claude/notify.sh
 
 # setting statusline.sh
 $ ln -s $(pwd)/statusline.sh $HOME/.claude/statusline.sh
+
+# install ccstatusline (상태표시줄 + 스킬 사용 추적)
+$ pnpm add -g ccstatusline
+$ ccstatusline        # 대화형 설정 실행
 ```
 
 ## 프로젝트 구조
@@ -233,6 +237,8 @@ claude-skills/
 | **PreToolUse** | Agent | `slack-agent-progress.sh` 실행하여 에이전트 요청 상태 Slack 알림 |
 | **PostToolUse** | SendMessage | `slack-agent-message.sh` 실행하여 에이전트 응답 Slack 전송 |
 | **PostToolUse** | Agent | `slack-agent-message.sh` 실행하여 에이전트 응답 Slack 전송 |
+| **PreToolUse** | Skill | `ccstatusline --hook` 실행하여 스킬 실행을 추적·집계 |
+| **UserPromptSubmit** | 전체 | `ccstatusline --hook` 실행하여 프롬프트 단위 세션 정보 업데이트 |
 | **Notification** | 전체 | 알림 발생 시 `notify.sh` 실행 |
 | **Stop** | 전체 | `stop-notify.sh` 실행 + `commit-session.sh` 비동기 실행 |
 
@@ -251,7 +257,8 @@ claude-skills/
 | **CLAUDE.md** | 프로젝트 규칙 (코드 스타일, 아키텍처 규칙, Git 워크플로, 작업 기록 규칙) |
 | **settings.json** | Claude Code 설정 (권한, 모델, 훅, 상태표시줄) |
 | **notify.sh** | 알림 훅 스크립트 (macOS/Linux/Windows 시스템 알림 + Slack 웹훅) |
-| **statusline.sh** | Claude Code 상태표시줄 스크립트 (작업 디렉토리, git 브랜치, 모델명, 컨텍스트 사용률, 세션명 표시) |
+| **statusline.sh** | (레거시) 자체 구현 상태표시줄 스크립트. 현재는 `ccstatusline`으로 대체 |
+| **ccstatusline** | Claude Code용 커스터마이즈 가능한 상태표시줄 (npm 전역 패키지). 작업 디렉토리, git 브랜치, 모델, 컨텍스트 사용률, 스킬 사용 추적 등을 표시 |
 
 ### settings.json 주요 설정
 
@@ -278,6 +285,27 @@ qmd *
 ```
 
 QMD 로컬 검색 엔진 명령은 자동 허용됩니다.
+
+### ccstatusline 설정
+
+`settings.json`의 `statusLine`에서 `ccstatusline`을 상태표시줄 커맨드로 지정하고, PreToolUse(Skill) / UserPromptSubmit 훅에 `ccstatusline --hook`을 등록하여 스킬 사용 내역과 세션 정보를 실시간으로 집계합니다.
+
+```json
+"statusLine": {
+  "type": "command",
+  "command": "ccstatusline",
+  "refreshInterval": 5
+}
+```
+
+| 항목 | 값 |
+|------|----|
+| 패키지 | `ccstatusline` (npm, `-g` 전역 설치) |
+| 상태표시줄 갱신 주기 | 5초 |
+| 추적 대상 | Skill 호출, 사용자 프롬프트 제출 |
+| 관리 태그 | `_tag: "ccstatusline-managed"` (ccstatusline CLI가 자동 동기화) |
+
+> `_tag: "ccstatusline-managed"` 블록은 `ccstatusline` CLI가 직접 관리하므로 수동 편집 대신 대화형 설정 (`ccstatusline`)을 통해 변경하세요.
 
 ### notify.sh 환경 변수
 
