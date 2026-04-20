@@ -17,7 +17,7 @@
     ],
     "defaultMode": "plan"
   },
-  "model": "sonnet",
+  "model": "opus",
   "hooks": {
     "SessionStart": [
       {
@@ -60,6 +60,16 @@
             "timeout": 10
           }
         ]
+      },
+      {
+        "_tag": "ccstatusline-managed",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "ccstatusline --hook"
+          }
+        ],
+        "matcher": "Skill"
       }
     ],
     "PostToolUse": [
@@ -117,15 +127,26 @@
           }
         ]
       }
+    ],
+    "UserPromptSubmit": [
+      {
+        "_tag": "ccstatusline-managed",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "ccstatusline --hook"
+          }
+        ]
+      }
     ]
   },
   "statusLine": {
     "type": "command",
-    "command": "bash $HOME/.claude/statusline.sh"
+    "command": "ccstatusline",
+    "refreshInterval": 5
   },
   "language": "korean",
   "alwaysThinkingEnabled": true,
-  "effortLevel": "high",
   "advisorModel": "opus",
   "fastMode": false,
   "skipDangerousModePermissionPrompt": true,
