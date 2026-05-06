@@ -1,0 +1,1 @@
+/Users/dabot/Documents/develop/claude-skills/skills/gstack/freeze/SKILL.md

@@ -1,0 +1,1 @@
+/Users/dabot/Documents/develop/claude-skills/skills/gstack/skillify/SKILL.md
