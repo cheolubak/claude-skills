@@ -5,3 +5,6 @@ work-log.md
 
 # Team session data (auto-generated)
 teams/*/inboxes/
+
+# gstack-upgrade auto-generated backups
+skills/.gstack-backup-*/
