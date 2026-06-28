@@ -27,6 +27,11 @@
 - Server Component 기본, Client는 최소화
 - Server Actions로 mutation 처리
 
+# Telegram
+
+- Telegram 채널에서 메시지를 받으면(`<channel source="telegram" ...>`), 무조건 가장 먼저 — 다른 도구 호출이나 응답보다 앞서 — telegram `react`로 확인 이모지(예: 👀)를 남기거나 `reply`로 짧은 확인 메시지를 보낸 뒤 실제 작업을 진행한다.
+- Telegram 채널에서 시작된 작업을 처리하는 동안 사용자에게 **진행 방향·선택지·승인 여부**를 물어야 할 때는 `AskUserQuestion` 같은 로컬 UI 도구를 절대 쓰지 않는다(로컬 터미널에만 표시되어 텔레그램 사용자는 볼 수 없다). 대신 telegram `reply`로 질문하며, 선택지는 `1) 2) 3)` 번호 텍스트로 제시한다. 질문을 보낸 뒤에는 턴을 종료하여 사용자의 다음 텔레그램 메시지를 답으로 기다리고, 그 사이 추측으로 작업을 진행하지 않는다. (`AskUserQuestion`은 PreToolUse 훅이 텔레그램 세션에서 차단한다.)
+
 # Git 워크플로
 
 - 브랜치: feature/*, fix/*, chore/*
