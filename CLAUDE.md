@@ -44,6 +44,8 @@
 1. **Memory 저장**: 작업 내용을 memory에 `project` 타입으로 저장 (무엇을 왜 변경했는지 요약)
 2. **Work Log 기록**: `work-log.md` 파일에 날짜별로 작업 내용 추가
 
+> **예외**: 프로젝트 이름(또는 최상위 디렉토리명)이 `ttc-`로 시작하는 경우에는 `work-log.md`를 생성하거나 기록하지 않는다. Memory 저장은 그대로 수행한다.
+
 ## Work Log 형식
 
 ```markdown
