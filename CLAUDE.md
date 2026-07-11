@@ -36,6 +36,7 @@
 
 - 브랜치: feature/*, fix/*, chore/*
 - 커밋 메시지: imperative mood (한글 가능)
+- 머지: 무조건 rebase 방식으로만 머지한다 (merge commit 금지). PR 머지 시 "Rebase and merge"를 사용하고, 로컬 통합 시 `git rebase`로 base 브랜치 위에 재배치한 뒤 fast-forward로 머지한다. `git merge`로 merge commit을 생성하지 않는다.
 
 # 작업 기록
 
