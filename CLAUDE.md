@@ -38,6 +38,7 @@
 - 커밋 메시지: imperative mood (한글 가능)
 - 머지: 무조건 rebase 방식으로만 머지한다 (merge commit 금지). PR 머지 시 "Rebase and merge"를 사용하고, 로컬 통합 시 `git rebase`로 base 브랜치 위에 재배치한 뒤 fast-forward로 머지한다. `git merge`로 merge commit을 생성하지 않는다.
 - Worktree: worktree에서 작업을 시작할 때는 **항상 먼저 `main` 브랜치를 기준으로 rebase**한 뒤에 실제 작업을 진행한다. 즉 `git fetch origin` 후 `git rebase origin/main`(또는 최신 `main`)으로 base를 최신화하고 나서 코드를 수정한다. 오래된 base 위에서 바로 작업하지 않는다.
+- Worktree 브랜치 격리: worktree에서 작업하는 동안에는 **사용자가 명시적으로 `main` 머지를 요청하기 전까지 무조건 작업 중인 브랜치에서만 작업한다**. 사용자의 지시 없이 `main`으로 체크아웃하거나, `main`을 머지·푸시하거나, 다른 브랜치로 이동해 커밋하지 않는다. 머지 요청이 오면 그때 rebase 방식(merge commit 금지)으로 통합한다.
 
 # 작업 기록
 
