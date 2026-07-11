@@ -8,7 +8,7 @@
 # 각 라운드를 개별 claude -p 세션으로 실행하고,
 # 라운드 간 결과를 bash에서 전달하며 Slack 알림을 직접 전송합니다.
 #
-# 도전자(Round 2)는 Sonnet 모델로 실행되어 토큰 비용을 절감합니다.
+# 각 라운드의 claude -p 세션은 --model을 지정하지 않아 Claude에 설정된 모델을 상속받습니다.
 
 set -euo pipefail
 
@@ -92,7 +92,7 @@ if [ -n "$ROUND1" ]; then
   echo "$ROUND1" | send_by_sections "$PRIMARY" "✅ Round 1 초기 분석" "$TEAM" "$THREAD"
 fi
 
-# ─── Round 2: 도전자 반박/보완 (Sonnet) ───
+# ─── Round 2: 도전자 반박/보완 ───
 bash "$HOOK_DIR/slack-team-progress.sh" "$TEAM" "progress" "${PART} — Round 2 도전/보완 요청 중" "" "$THREAD" >/dev/null
 
 ROUND2=$(CMUX_CLAUDE_HOOKS_DISABLED=1 claude -p "$(cat <<PROMPT
@@ -107,7 +107,7 @@ ${ROUND1}
 위 Round 1 분석에 대해 Round 2 도전과 보완을 수행해주세요.
 동의/보강할 부분과 도전/보완할 부분을 구분하여 제시해주세요.
 PROMPT
-)" --model sonnet --output-format text 2>/dev/null || true)
+)" --output-format text 2>/dev/null || true)
 
 if [ -n "$ROUND2" ]; then
   echo "$ROUND2" | send_by_sections "$SECONDARY" "✅ Round 2 도전/보완" "$TEAM" "$THREAD"

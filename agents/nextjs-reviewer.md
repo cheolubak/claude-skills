@@ -1,7 +1,6 @@
 ---
 name: nextjs-reviewer
 description: Next.js + pnpm 애플리케이션을 확립된 패턴에 따라 리뷰합니다. 심각한 이슈는 자동 수정하고 권장사항을 보고합니다. 프로젝트 감사 또는 검증에 사용합니다.
-model: opus
 skills:
   - nextjs-shadcn
   - react-best-practices
