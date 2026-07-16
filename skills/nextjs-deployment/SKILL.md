@@ -283,6 +283,8 @@ jobs:
 
 ## 에러 모니터링 (Sentry)
 
+> **전체 관측성(로그·메트릭·분산 트레이스)**이 필요하면 **grafana-observability** 스킬을 참조하세요. OpenTelemetry로 Next.js/NestJS를 계측하고 Grafana LGTM 스택(Loki·Tempo·Prometheus)으로 수집합니다. 아래 Sentry는 에러 추적에 특화된 가벼운 선택지입니다.
+
 ### 설치 및 설정
 
 ```bash
