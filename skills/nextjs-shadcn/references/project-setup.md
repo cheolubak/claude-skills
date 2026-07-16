@@ -108,10 +108,12 @@ project/
 │   └── utils.ts            # cn() 헬퍼
 ├── public/
 ├── components.json         # shadcn 설정
-├── tailwind.config.ts
+├── postcss.config.mjs      # @tailwindcss/postcss (v4)
 ├── tsconfig.json
 └── package.json
 ```
+
+> **Tailwind v4**에서는 `tailwind.config.ts`가 없습니다. 테마는 `globals.css`의 `@theme`로 정의하고 PostCSS는 `@tailwindcss/postcss` 하나만 씁니다. 자세한 테마 토큰은 **tailwind-patterns** 스킬 참조.
 
 ## pnpm 명령어 참조
 

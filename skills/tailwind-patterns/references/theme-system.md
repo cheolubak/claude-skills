@@ -1,64 +1,168 @@
-# Tailwind 테마 시스템 레퍼런스
+# Tailwind v4 테마 시스템 레퍼런스
 
-## CSS 변수 (shadcn/ui)
+> Tailwind CSS **v4** 기준. 색상은 **OKLCH**, 설정은 **CSS-first**(`@theme`). `tailwind.config.js`와 `hsl(var(--x))` 패턴은 쓰지 않습니다. v3 프로젝트라면 맨 아래 [마이그레이션](#v3--v4-마이그레이션) 참조.
 
-### 기본 변수
+## 구조 개요
+
+v4 + shadcn/ui의 테마는 세 부분으로 나뉩니다.
+
+1. **원본 색상 변수** — `:root`(라이트) / `.dark`(다크)에 OKLCH로 정의
+2. **`@theme inline` 매핑** — `--color-*` 토큰이 위 변수를 인라인 참조 → `bg-*`/`text-*` 유틸리티 생성
+3. **다크모드 variant** — `@custom-variant dark`로 `.dark` 클래스 기반 전환
 
 ```css
-@layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
-    --primary: 240 5.9% 10%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
-    --accent: 240 4.8% 95.9%;
-    --accent-foreground: 240 5.9% 10%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 240 5.9% 10%;
-    --radius: 0.5rem;
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
-  }
+@import "tailwindcss";
 
-  .dark {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 240 5.9% 10%;
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
-    --accent: 240 3.7% 15.9%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 240 4.9% 83.9%;
-  }
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* 2. 원본 변수 (light) */
+}
+.dark {
+  /* 2. 원본 변수 (dark) */
+}
+
+@theme inline {
+  /* 3. Tailwind 토큰 매핑 */
 }
 ```
 
-### 변수 사용 맵
+---
+
+## shadcn/ui v4 표준 토큰 (전체)
+
+### :root (라이트)
+
+```css
+:root {
+  --radius: 0.625rem;
+
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+}
+```
+
+### .dark (다크)
+
+```css
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+}
+```
+
+### @theme inline 매핑
+
+```css
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+```
+
+> **왜 `@theme inline`인가?** `inline`을 붙이면 유틸리티가 `--color-primary` 대신 그 값(`var(--primary)`)을 인라인으로 사용합니다. 덕분에 `.dark`에서 `--primary`만 재정의해도 `bg-primary`가 즉시 다크값으로 전환됩니다. `inline` 없이 매핑하면 `.dark`의 재정의가 유틸리티에 반영되지 않습니다.
+
+---
+
+## 변수 사용 맵
 
 | 변수 | Tailwind 클래스 | 용도 |
 |----------|---------------|---------|
@@ -74,76 +178,48 @@
 | `--border` | `border-border` | 모든 테두리 |
 | `--input` | `border-input` | 입력 필드 테두리 |
 | `--ring` | `ring-ring` | 포커스 링 |
-| `--radius` | `rounded-*` | 테두리 반경 기본값 |
+| `--radius` | `rounded-sm/md/lg/xl` | 테두리 반경 스케일 |
 | `--card` | `bg-card` | 카드 배경 |
 | `--popover` | `bg-popover` | 팝오버/드롭다운 배경 |
-
-### 사이드바 변수
-
-```css
-:root {
-  --sidebar-background: 0 0% 98%;
-  --sidebar-foreground: 240 5.3% 26.1%;
-  --sidebar-primary: 240 5.9% 10%;
-  --sidebar-primary-foreground: 0 0% 98%;
-  --sidebar-accent: 240 4.8% 95.9%;
-  --sidebar-accent-foreground: 240 5.9% 10%;
-  --sidebar-border: 220 13% 91%;
-  --sidebar-ring: 240 5.9% 10%;
-}
-```
+| `--chart-1`~`5` | `fill-chart-1`, `stroke-chart-2` | 차트 색상 |
+| `--sidebar` | `bg-sidebar` | 사이드바 배경 |
 
 ---
 
 ## 커스텀 색상 추가
 
-### globals.css에 정의
+v4에서는 `@theme`에 `--color-*`를 추가하는 순간 유틸리티가 생성됩니다. JS 등록 단계가 없습니다.
 
 ```css
 :root {
-  --brand: 220 90% 56%;
-  --brand-foreground: 0 0% 100%;
-  --success: 142 76% 36%;
-  --success-foreground: 0 0% 100%;
-  --warning: 38 92% 50%;
-  --warning-foreground: 0 0% 100%;
-  --info: 199 89% 48%;
-  --info-foreground: 0 0% 100%;
+  --brand: oklch(0.62 0.19 260);
+  --brand-foreground: oklch(1 0 0);
+  --success: oklch(0.65 0.17 150);
+  --success-foreground: oklch(1 0 0);
+  --warning: oklch(0.8 0.16 85);
+  --warning-foreground: oklch(0.2 0 0);
+  --info: oklch(0.68 0.15 230);
+  --info-foreground: oklch(1 0 0);
 }
 
 .dark {
-  --brand: 220 90% 66%;
-  --brand-foreground: 0 0% 100%;
-  --success: 142 76% 46%;
-  --warning: 38 92% 60%;
-  --info: 199 89% 58%;
+  --brand: oklch(0.7 0.19 260);
+  --success: oklch(0.72 0.17 150);
+  --warning: oklch(0.85 0.16 85);
+  --info: oklch(0.74 0.15 230);
+}
+
+@theme inline {
+  --color-brand: var(--brand);
+  --color-brand-foreground: var(--brand-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-info: var(--info);
+  --color-info-foreground: var(--info-foreground);
 }
 ```
-
-### tailwind.config.ts에 등록
-
-```ts
-import type { Config } from 'tailwindcss'
-
-export default {
-  theme: {
-    extend: {
-      colors: {
-        brand: 'hsl(var(--brand))',
-        'brand-foreground': 'hsl(var(--brand-foreground))',
-        success: 'hsl(var(--success))',
-        'success-foreground': 'hsl(var(--success-foreground))',
-        warning: 'hsl(var(--warning))',
-        'warning-foreground': 'hsl(var(--warning-foreground))',
-        info: 'hsl(var(--info))',
-        'info-foreground': 'hsl(var(--info-foreground))',
-      },
-    },
-  },
-} satisfies Config
-```
-
-### 사용법
 
 ```tsx
 <div className="bg-brand text-brand-foreground" />
@@ -151,9 +227,20 @@ export default {
 <Alert className="bg-warning text-warning-foreground">Warning</Alert>
 ```
 
+> **OKLCH 팁**: `oklch(L C H)` — L(명도 0~1), C(채도), H(색상각 0~360). 같은 색조에서 명도만 조절하면 라이트/다크 쌍을 만들기 쉽습니다. 투명도는 `oklch(0.62 0.19 260 / 50%)`.
+
 ---
 
 ## 다크 모드 설정
+
+### @custom-variant
+
+`.dark` 클래스 기반 전환을 위해 CSS 상단에 선언합니다(next-themes의 `attribute="class"`와 짝).
+
+```css
+@import "tailwindcss";
+@custom-variant dark (&:is(.dark *));
+```
 
 ### next-themes
 
@@ -195,8 +282,8 @@ export function ThemeToggle() {
       size="icon"
       onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
     >
-      <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-      <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+      <Sun className="h-4 w-4 scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
+      <Moon className="absolute h-4 w-4 scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
     </Button>
   )
 }
@@ -211,44 +298,97 @@ export function ThemeToggle() {
 <div className="bg-blue-500 text-white" />
 <div className="bg-[#1a1a1a]" />
 <div className="text-gray-600" />
-<div className="border-slate-200" />
 
-// ✅ 항상 테마 변수를 사용
+// ✅ 항상 테마 토큰 사용 (다크모드 자동 대응)
 <div className="bg-primary text-primary-foreground" />
-<div className="bg-background" />
+<div className="bg-background text-foreground" />
 <div className="text-muted-foreground" />
 <div className="border-border" />
 ```
 
 ---
 
-## 폰트 커스터마이징
+## 폰트 커스터마이징 (@theme)
+
+v4는 `@theme`의 `--font-*`로 폰트 패밀리 유틸리티를 만듭니다. `next/font` 변수와 함께 쓸 때는 `@theme inline`으로 연결합니다.
+
+```tsx
+// app/layout.tsx
+import { Inter, JetBrains_Mono } from 'next/font/google'
+
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
+const mono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-jetbrains' })
+
+// <body className={`${inter.variable} ${mono.variable}`}>
+```
 
 ```css
-:root {
-  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
-  --font-serif: Georgia, serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+@theme inline {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
 }
 ```
 
+`font-sans`, `font-mono` 유틸리티로 사용합니다.
+
+---
+
 ## 테두리 반경 커스터마이징
+
+`--radius` 하나만 바꾸면 `rounded-sm/md/lg/xl`이 함께 스케일됩니다(위 `@theme inline`의 `calc()` 매핑 덕분).
 
 ```css
 :root {
-  --radius: 0.5rem;     /* 기본값 */
-  /* --radius: 0.25rem; /* 날카로운, 기술적 느낌 */
-  /* --radius: 0.75rem; /* 둥근 느낌 */
-  /* --radius: 1rem;    /* 매우 둥근 느낌 */
-  /* --radius: 1.3rem;  /* 알약 모양 */
+  --radius: 0.625rem;  /* 기본값 */
+  /* --radius: 0.3rem;  날카로운, 기술적 느낌 */
+  /* --radius: 1rem;    둥근 느낌 */
 }
 ```
 
 ---
 
+## v3 → v4 마이그레이션
+
+가장 확실한 방법은 공식 업그레이드 도구입니다.
+
+```bash
+pnpm dlx @tailwindcss/upgrade
+```
+
+수동 변경 시 핵심 차이:
+
+| v3 | v4 |
+|----|----|
+| `@tailwind base; @tailwind components; @tailwind utilities;` | `@import "tailwindcss";` |
+| `tailwind.config.js`의 `theme.extend` | CSS의 `@theme { ... }` |
+| `content: [...]` 배열 | 자동 콘텐츠 감지(설정 불필요) |
+| `hsl(var(--primary))` + HSL 채널(`0 0% 100%`) | OKLCH 값 + `@theme inline` 매핑 |
+| `darkMode: 'class'` | `@custom-variant dark (&:is(.dark *));` |
+| PostCSS `tailwindcss` + `autoprefixer` | `@tailwindcss/postcss` 하나 |
+| `@layer utilities { .x {} }` 커스텀 유틸 | `@utility x { ... }` |
+
+### 색상 값 변환 (HSL 채널 → OKLCH)
+
+v3 shadcn은 `--primary: 240 5.9% 10%` 같은 **HSL 채널**을 저장하고 `hsl(var(--primary))`로 감쌌습니다. v4는 완성된 색상값을 저장합니다. 기존 HSL을 유지하고 싶다면 `hsl(...)`로 감싼 값을 그대로 넣어도 됩니다.
+
+```css
+/* v3 유지형 (그대로 두고 최소 이전) */
+:root { --primary: hsl(240 5.9% 10%); }
+@theme inline { --color-primary: var(--primary); }
+
+/* v4 권장형 (OKLCH) */
+:root { --primary: oklch(0.205 0 0); }
+@theme inline { --color-primary: var(--primary); }
+```
+
+> shadcn/ui를 쓰는 경우 CLI(`pnpm dlx shadcn@latest init`)가 v4용 OKLCH 토큰을 자동 생성합니다. 컴포넌트 구조·CLI는 **nextjs-shadcn** 스킬 참조.
+
+---
+
 ## 공식 문서
 
-- [Tailwind CSS](https://tailwindcss.com/docs)
-- [shadcn/ui 테마](https://ui.shadcn.com/docs/theming)
-- [shadcn/ui CSS 변수](https://ui.shadcn.com/docs/theming#css-variables)
+- [Tailwind CSS v4](https://tailwindcss.com/docs)
+- [v4 업그레이드 가이드](https://tailwindcss.com/docs/upgrade-guide)
+- [`@theme` 레퍼런스](https://tailwindcss.com/docs/theme)
+- [shadcn/ui 테마(v4)](https://ui.shadcn.com/docs/theming)
 - [next-themes](https://github.com/pacocoursey/next-themes)

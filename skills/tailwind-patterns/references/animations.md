@@ -94,21 +94,22 @@
   }
 }
 
-@layer utilities {
-  .animate-page-in {
-    animation: page-in 0.6s ease-out both;
-  }
-  .animate-fade-in {
-    animation: fade-in 0.3s ease-out both;
-  }
-  .animate-slide-up {
-    animation: slide-up 0.5s ease-out both;
-  }
-  .animate-slide-in-right {
-    animation: slide-in-right 0.4s ease-out both;
-  }
+/* v4: @utility로 커스텀 애니메이션 유틸리티 정의 (구 @layer utilities 대체) */
+@utility animate-page-in {
+  animation: page-in 0.6s ease-out both;
+}
+@utility animate-fade-in {
+  animation: fade-in 0.3s ease-out both;
+}
+@utility animate-slide-up {
+  animation: slide-up 0.5s ease-out both;
+}
+@utility animate-slide-in-right {
+  animation: slide-in-right 0.4s ease-out both;
 }
 ```
+
+> 또는 `@theme { --animate-fade-in: fade-in 0.3s ease-out both; }`처럼 테마 토큰으로 등록하면 `animate-fade-in`이 자동 생성됩니다(키프레임을 `@theme` 안에 함께 선언). 둘 중 하나만 사용하세요.
 
 ### template.tsx를 활용한 사용법
 
@@ -375,4 +376,4 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
 - [Motion](https://motion.dev) -- 선언적 React 애니메이션
 - [GSAP](https://gsap.com) -- 타임라인 및 스크롤 기반 애니메이션
 - [Lenis](https://lenis.darkroom.engineering) -- 부드러운 스크롤
-- [tailwindcss-animate](https://github.com/jamiebuilds/tailwindcss-animate) -- 애니메이션 유틸리티 플러그인
+- [tw-animate-css](https://github.com/Wombosvideo/tw-animate-css) -- v4용 애니메이션 유틸리티(`@import "tw-animate-css";`), 구 `tailwindcss-animate` 대체

@@ -10,6 +10,8 @@
 | `xl` | 1280px | 데스크톱 |
 | `2xl` | 1536px | 대형 모니터 |
 
+> **v4 커스텀 브레이크포인트**는 `@theme`에서 정의합니다. `@theme { --breakpoint-3xl: 120rem; }` → `3xl:` variant 생성. 컨테이너 쿼리도 내장: `@container` + `@md:`/`@min-[475px]:` 사용.
+
 ### 모바일 우선 접근
 
 ```tsx

@@ -4,33 +4,45 @@
 
 ### globals.css 구조
 
-shadcn은 선택한 프리셋에 따라 기본 변수를 자동으로 생성합니다. 프로젝트에 맞게 커스터마이즈하세요:
+shadcn CLI(`pnpm dlx shadcn@latest init`)는 **Tailwind v4** 기준으로 `globals.css`에 OKLCH 토큰과 `@theme inline` 매핑을 자동 생성합니다. 프로젝트에 맞게 커스터마이즈하세요:
 
 ```css
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-@layer base {
-  :root {
-    /* shadcn 기본 변수는 프리셋에서 제공됨 */
-    --background: ...;
-    --foreground: ...;
-    --primary: ...;
-    --secondary: ...;
-    /* 등등 */
+/* 다크모드를 .dark 클래스 기반으로 (next-themes와 함께) */
+@custom-variant dark (&:is(.dark *));
 
-    /* 필요에 따라 자체 변수를 추가하세요 */
-    --brand: 220 90% 56%;
-    --brand-foreground: 0 0% 100%;
-    --accent-2: 160 60% 45%;
-  }
+:root {
+  --radius: 0.625rem;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  /* ... 나머지 토큰 (전체 목록은 tailwind-patterns 참조) */
 
-  .dark {
-    /* 다크 모드 변형 */
-  }
+  /* 필요에 따라 자체 변수를 추가하세요 */
+  --brand: oklch(0.62 0.19 260);
+  --brand-foreground: oklch(1 0 0);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  /* ... 다크 값으로 재정의 */
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-brand: var(--brand);
+  --radius-lg: var(--radius);
+  /* ... */
 }
 ```
+
+> **테마 토큰 전체 목록·OKLCH 값·v3→v4 마이그레이션**은 **tailwind-patterns** 스킬의 `references/theme-system.md`에 정리돼 있습니다. 여기서는 shadcn 컴포넌트 사용에 집중합니다.
 
 **프리셋 선택**: [ui.shadcn.com/create](https://ui.shadcn.com/create)에서 테마(vega, nova, maia, lyra, mira)와 색상을 선택하세요.
 
@@ -326,7 +338,7 @@ export function GridBackground({
       <div
         className={cn(
           "absolute inset-0 -z-10",
-          "[background-image:linear-gradient(to_right,hsl(var(--border))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--border))_1px,transparent_1px)]"
+          "[background-image:linear-gradient(to_right,var(--border)_1px,transparent_1px),linear-gradient(to_bottom,var(--border)_1px,transparent_1px)]"
         )}
         style={{ backgroundSize: `${size}px ${size}px` }}
       />
@@ -352,7 +364,7 @@ export function DotBackground({
         className={cn(
           "absolute inset-0 -z-10",
           "[background-size:20px_20px]",
-          "[background-image:radial-gradient(hsl(var(--muted-foreground)/0.3)_1px,transparent_1px)]"
+          "[background-image:radial-gradient(color-mix(in_oklch,var(--muted-foreground)_30%,transparent)_1px,transparent_1px)]"
         )}
       />
       {children}
@@ -371,7 +383,7 @@ export function GradientHero({ children }: { children: React.ReactNode }) {
         aria-hidden
         className="fixed inset-0 -z-10"
         style={{
-          background: "radial-gradient(125% 125% at 50% 10%, hsl(var(--background)) 40%, hsl(var(--primary)) 100%)"
+          background: "radial-gradient(125% 125% at 50% 10%, var(--background) 40%, var(--primary) 100%)"
         }}
       />
       {children}
@@ -449,18 +461,14 @@ components/
 
 ### 스크롤바 숨기기
 
-스크롤 기능을 유지하면서 스크롤바를 숨기세요:
+스크롤 기능을 유지하면서 스크롤바를 숨기세요. v4에서는 플러그인 없이 `@utility`로 정의합니다:
 
-```bash
-pnpm add tailwind-scrollbar-hide
-```
-
-```ts
-// tailwind.config.ts
-import scrollbarHide from "tailwind-scrollbar-hide"
-
-export default {
-  plugins: [scrollbarHide],
+```css
+/* globals.css */
+@utility scrollbar-hide {
+  &::-webkit-scrollbar { display: none; }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 ```
 

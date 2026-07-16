@@ -134,8 +134,13 @@ peer-focus:ring-2            # 형제 대상
 
 ### 스크롤
 
-```bash
-pnpm add tailwind-scrollbar-hide
+```css
+/* globals.css — v4에서는 @utility로 직접 정의 (플러그인 불필요) */
+@utility scrollbar-hide {
+  &::-webkit-scrollbar { display: none; }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
 ```
 
 ```text
@@ -193,7 +198,7 @@ function GridBackground({ children, className }: { children: React.ReactNode; cl
   return (
     <div className={cn('relative', className)}>
       <div
-        className="absolute inset-0 -z-10 [background-image:linear-gradient(to_right,hsl(var(--border))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--border))_1px,transparent_1px)]"
+        className="absolute inset-0 -z-10 [background-image:linear-gradient(to_right,var(--border)_1px,transparent_1px),linear-gradient(to_bottom,var(--border)_1px,transparent_1px)]"
         style={{ backgroundSize: '20px 20px' }}
       />
       {children}
@@ -208,7 +213,7 @@ function GridBackground({ children, className }: { children: React.ReactNode; cl
 function DotBackground({ children, className }: { children: React.ReactNode; className?: string }) {
   return (
     <div className={cn('relative', className)}>
-      <div className="absolute inset-0 -z-10 [background-size:20px_20px] [background-image:radial-gradient(hsl(var(--muted-foreground)/0.3)_1px,transparent_1px)]" />
+      <div className="absolute inset-0 -z-10 [background-size:20px_20px] [background-image:radial-gradient(color-mix(in_oklch,var(--muted-foreground)_30%,transparent)_1px,transparent_1px)]" />
       {children}
     </div>
   )
@@ -225,7 +230,7 @@ function GradientHero({ children }: { children: React.ReactNode }) {
         aria-hidden
         className="fixed inset-0 -z-10"
         style={{
-          background: 'radial-gradient(125% 125% at 50% 10%, hsl(var(--background)) 40%, hsl(var(--primary)) 100%)',
+          background: 'radial-gradient(125% 125% at 50% 10%, var(--background) 40%, var(--primary) 100%)',
         }}
       />
       {children}
@@ -257,6 +262,30 @@ function Section({ children, variant = 'default', className }: {
 
 ---
 
+## 커스텀 유틸리티 (v4 @utility)
+
+v4는 `@layer utilities { .x {} }` 대신 `@utility` 지시자로 커스텀 유틸리티를 정의합니다. variant(`hover:`, `dark:` 등)와 자동으로 조합됩니다.
+
+```css
+/* globals.css */
+@utility tap-highlight-none {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* 값을 받는 함수형 유틸리티 (예: content-auto) */
+@utility content-auto {
+  content-visibility: auto;
+}
+```
+
+```tsx
+<button className="tap-highlight-none hover:tap-highlight-none" />
+```
+
+> v4에는 `text-balance`, `line-clamp-*`, `field-sizing-content` 등이 내장되어 별도 플러그인이 필요 없습니다. `cn()`/`cva` 사용법은 위 참조.
+
+---
+
 ## 파일 구조
 
 ```text
@@ -271,8 +300,8 @@ components/
 
 ## 관련 라이브러리
 
-- [tailwind-merge](https://github.com/dcastil/tailwind-merge) -- 클래스 충돌 해결
+- [tailwind-merge](https://github.com/dcastil/tailwind-merge) -- 클래스 충돌 해결 (v3.x가 v4 대응)
 - [clsx](https://github.com/lukeed/clsx) -- 조건부 클래스 결합
 - [class-variance-authority](https://cva.style/docs) -- 컴포넌트 변형 관리
-- [tailwind-scrollbar-hide](https://github.com/reslear/tailwind-scrollbar-hide) -- 스크롤바 숨기기
-- [tailwindcss-animate](https://github.com/jamiebuilds/tailwindcss-animate) -- 애니메이션 유틸리티
+- [tw-animate-css](https://github.com/Wombosvideo/tw-animate-css) -- v4용 애니메이션 유틸리티(구 `tailwindcss-animate` 대체). `@import "tw-animate-css";`로 사용
+- 스크롤바 숨김은 v4에서 `@utility`로 직접 정의 (위 커스텀 유틸리티 참조)
